@@ -2,7 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::get('/', function() {
+    return view('welcome.welcome-page');
+})->name('welcome-page');
+
+Route::get('/gallery/all', function() {
+    return view('welcome.welcome-gallery');
+})->name('welcome-gallery');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -13,3 +19,4 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

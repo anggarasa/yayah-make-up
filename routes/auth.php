@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Livewire\Pages\AuthAdmin\LoginAdmin;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::middleware('guest')->group(function () {
+Route::middleware(['guest', 'redirect.if.admin'])->group(function () {
     Volt::route('register', 'pages.auth.register')
         ->name('register');
 
@@ -16,9 +17,13 @@ Route::middleware('guest')->group(function () {
 
     Volt::route('reset-password/{token}', 'pages.auth.reset-password')
         ->name('password.reset');
+
+        Route::get('/admin/login', LoginAdmin::class)
+        ->name('admin.login');
 });
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware('auth', 'redirect.if.admin')->group(function () {
     Volt::route('verify-email', 'pages.auth.verify-email')
         ->name('verification.notice');
 
