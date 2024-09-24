@@ -49,7 +49,8 @@ class ModalCategoryProduct extends Component
     {
         $this->resetInput();
         $this->categoryId = $categoryId;
-        CategoryProduct::findOrFail($categoryId);
+        $category = CategoryProduct::findOrFail($categoryId);
+        $this->name = $category->name;
 
         $this->dispatch('confirmasi-delete-modal');
     }

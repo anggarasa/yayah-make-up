@@ -197,6 +197,15 @@
                     </p>
                 </div>
             </div>
+
+            <div class="mb-6">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Category Name<span
+                        class="text-red-600">*</span></label>
+                <input wire:model="name" type="text" id="name" wire:input="generateSlug"
+                    class="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none cursor-not-allowed focus:shadow-outline focus:border-ungu-dark focus:ring-ungu-dark"
+                    required readonly>
+            </div>
+
             <div class="flex items-center justify-between">
                 <button type="button" wire:click="deleteProduct"
                     class="text-white bg-ungu-dark hover:bg-ungu-white focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
