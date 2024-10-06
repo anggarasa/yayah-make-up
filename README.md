@@ -1,6 +1,6 @@
 # ThreadLoop
 
-<p align="center"><a target="_blank"><img src="https://raw.githubusercontent.com/anggarasa/yayah-make-up/799b53b17c5eaed5b236842140a5985a75fb747b/public/img/logo/logo-ym.svg" width="400" alt="ThreadLoop Logo"></a></p>
+<p align="center"><a target="_blank"><img src="https://raw.githubusercontent.com/anggarasa/yayah-make-up/refs/heads/dress/public/img/logo/readme-photo.png" width="400" alt="ThreadLoop Logo"></a></p>
 
 ## Tentang Yayah Make Up
 
