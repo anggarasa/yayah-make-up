@@ -16,8 +16,6 @@
     {{-- Font Awesome Icons --}}
     <script src="https://kit.fontawesome.com/9d4da73c07.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="/css/sidebar.css">
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -42,7 +40,6 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <script src="/js/preview-image-admin.js"></script>
-    <script src="/js/sidebar.js"></script>
 
 </body>
 
