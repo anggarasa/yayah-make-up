@@ -12,7 +12,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
         </svg>
       </div>
-      <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">{{ $title }}</h3>
+      <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">{{ $judul }}</h3>
       <div class="mt-2 px-7 py-3">
         <p class="text-sm text-gray-500">
           {{ $message }}
