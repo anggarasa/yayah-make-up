@@ -16,6 +16,10 @@
     {{-- Font Awesome Icons --}}
     <script src="https://kit.fontawesome.com/9d4da73c07.js" crossorigin="anonymous"></script>
 
+    {{-- Quill Editor --}}
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -39,7 +43,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script src="/js/preview-image-admin.js"></script>
+    {{-- <script src="/js/preview-image-admin.js"></script> --}}
 
 </body>
 

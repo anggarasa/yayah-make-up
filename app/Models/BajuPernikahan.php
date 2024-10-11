@@ -14,4 +14,11 @@ class BajuPernikahan extends Model
         'image_dress',
         'dress_type'
     ];
+
+    // Many to many Start
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_baju')->withTimestamps();
+    }
+    // Many to many End
 }

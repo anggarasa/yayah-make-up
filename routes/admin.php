@@ -3,6 +3,10 @@
 use App\Livewire\Pages\Admin\Category\Product\CategoryProduct;
 use App\Livewire\Pages\Admin\Crud\Baju\CrudBajuPernikahan;
 use App\Livewire\Pages\Admin\Product\Baju\BajuPernikahan;
+use App\Livewire\Pages\Admin\Product\Paket\CreateProduct;
+use App\Livewire\Pages\Admin\Product\Paket\DeleteProduct;
+use App\Livewire\Pages\Admin\Product\Paket\ListProduct;
+use App\Livewire\Pages\Admin\Product\Paket\UpdateProduct;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
@@ -16,6 +20,11 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
   });
 
   Route::prefix('product')->group(function() {
+    Route::get('/list-product', ListProduct::class)->name('list-product');
+    Route::get('/create-product', CreateProduct::class)->name('create-product');
+    Route::get('/update-product/{id}', UpdateProduct::class)->name('update-product');
+    Route::get('/delete-product/{id}', DeleteProduct::class)->name('delete-product');
+    
     Route::get('/baju-pernikahan', BajuPernikahan::class)->name('baju-pernikahan');
     Route::get('/baju-pernikahan/create', CrudBajuPernikahan::class)->name('baju-pernikahan-create');
     Route::get('/baju-pernikahan/{id}/edit', CrudBajuPernikahan::class)->name('baju-pernikahan-update');
