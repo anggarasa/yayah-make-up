@@ -16,6 +16,44 @@
     {{-- Font Awesome Icons --}}
     <script src="https://kit.fontawesome.com/9d4da73c07.js" crossorigin="anonymous"></script>
 
+    {{-- Quill Editor --}}
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+    {{-- Css Custom --}}
+    <style>
+        .quill-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5em;
+        }
+
+        .quill-content ol>li {
+            display: list-item;
+            margin-bottom: 0.5em;
+        }
+
+        .quill-content ol>li::before {
+            content: none;
+        }
+
+        .quill-content .ql-ui {
+            display: none;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -39,7 +77,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script src="/js/preview-image-admin.js"></script>
+    {{-- <script src="/js/preview-image-admin.js"></script> --}}
 
 </body>
 

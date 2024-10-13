@@ -43,8 +43,8 @@
           </x-slot>
 
           <x-slot name="content">
-            <x-sidebar-dropdown-link href="#">
-              Add Product
+            <x-sidebar-dropdown-link href="{{ route('list-product') }}" wire:navigate>
+              List Product
             </x-sidebar-dropdown-link>
 
             <x-sidebar-dropdown-link href="{{ route('baju-pernikahan') }}" wire:navigate>Baju Pernikahan
