@@ -13,4 +13,11 @@ class CategoryProduct extends Model
         'name',
         'slug',
     ];
+
+    // Hsash many Start
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+    // Hsash many End
 }

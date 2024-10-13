@@ -25,6 +25,13 @@ class Product extends Model
     }
     // Hash many End
 
+    // Belongs to Start
+    public function categoryProduct()
+    {
+        return $this->belongsTo(CategoryProduct::class);
+    }
+    // Belongs to End
+
     // Many to many Start
     public function dresses()
     {

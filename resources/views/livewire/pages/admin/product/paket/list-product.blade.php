@@ -46,7 +46,7 @@
                 @foreach ($products as $product)
                 <div class="rounded-lg border border-gray-200 bg-white shadow-sm">
                     <div class="w-full">
-                        <a href="#" wire:navigate>
+                        <a href="{{ route('show-product', $product->id) }}" wire:navigate>
                             <img class="w-72 rounded-t-lg h-64 object-cover"
                                 src="{{ asset('storage/'. $product->cover_image) }}" alt="" />
                         </a>
@@ -75,7 +75,8 @@
                             </div>
                         </div>
 
-                        <a href="#" class="text-lg font-semibold leading-tight text-gray-900 hover:underline">
+                        <a href="{{ route('show-product', $product->id) }}" wire:navigate
+                            class="text-lg font-semibold leading-tight text-gray-900 hover:underline">
                             {{ $product->title }}
                         </a>
 

@@ -29,7 +29,7 @@
                             <li aria-current="page">
                                 <div class="flex items-center">
                                     <i class="fa-solid fa-angle-right shrink-0 mx-2 size-4 text-gray-400"></i>
-                                    <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Product-Create</span>
+                                    <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Product-Delete</span>
                                 </div>
                             </li>
                         </ol>
