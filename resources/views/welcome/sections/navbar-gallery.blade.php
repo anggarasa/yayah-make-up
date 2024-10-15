@@ -1,6 +1,6 @@
 <nav class="{{ request()->is('gallery/all') ? 'bg-transparent' : 'bg-ungu-dark' }}">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a href="/" wire:navigate class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/img/logo/logo-ym.svg" class="h-8" alt="Yayah Make up Logo" />
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

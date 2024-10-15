@@ -20,6 +20,7 @@ export default {
         colors: {
             "ungu-white": "#AD49E1",
             "ungu-dark": "#7A1CAC",
+            "ungu-tipis": "#f3e6fa",
         },
         extend: {
             width: {
