@@ -23,6 +23,7 @@
 
 <body class="font-poppins antialiased">
     <div class="min-h-screen bg-gray-100">
+        <livewire:layout.user.user-navbar />
         <main>
             {{ $slot }}
         </main>

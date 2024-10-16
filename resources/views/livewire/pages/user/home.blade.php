@@ -1,40 +1,6 @@
 <div>
-    <div class="bg-ungu-dark p-4 flex items-center justify-between">
-        <div class="flex items-center">
-            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="/img/logo/logo-ym.svg" class="h-8" alt="Yayah Make up Logo" />
-            </a>
-        </div>
-        <div class="flex items-center w-2/3">
-            <input type="text" placeholder="Gratis Ongkir Rp0 s/d 60RB"
-                class="w-full p-2 rounded-l-md border-none focus:outline-none">
-            <button class="bg-white p-2 rounded-r-md">
-                <i class="fas fa-search text-ungu-dark"></i>
-            </button>
-        </div>
-        <div class="relative flex gap-x-4">
-            <div>
-                <i class="fa-solid fa-bell text-white text-2xl"></i>
-                <span class="absolute top-0 right-0 bg-white text-ungu-dark text-xs rounded-full px-1">10</span>
-            </div>
-            <div>
-                <i class="fas fa-shopping-cart text-white text-2xl"></i>
-                <span class="absolute top-0 right-0 bg-white text-ungu-dark text-xs rounded-full px-1">10</span>
-            </div>
-        </div>
-        <div class="relative">
-            <button type="button"
-                class="flex mx-6 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300">
-                <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
-                    alt="user photo" />
-            </button>
-        </div>
-    </div>
-
     {{-- Kategory product Start --}}
-    <div class="flex flex-col items-center py-4 bg-white">
+    <div class="flex flex-col items-center pt-20 pb-4 bg-white">
         <h2 class="text-2xl font-bold mb-4">Paket Wedding</h2>
         <div class="flex flex-wrap justify-center items-baseline space-x-4 space-y-4">
             <div class="flex flex-col items-center w-24">

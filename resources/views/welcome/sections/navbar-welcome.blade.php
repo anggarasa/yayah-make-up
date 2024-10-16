@@ -3,8 +3,9 @@
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/img/logo/logo-ym.svg" class="h-8" alt="Yayah Make up Logo" />
     </a>
-    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button type="button" class="text-white font-poppins text-sm text-center mr-14">DAFTAR</button>
+    <div class="flex md:order-2 items-center space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <a href="{{ route('register') }}" wire:navigate
+        class="text-white font-poppins text-sm text-center mr-14">DAFTAR</a>
       <a href="{{ route('login') }}" wire:navigate
         class="text-ungu-dark bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold text-sm px-7 py-2 text-center">MASUK</a>
       <button data-collapse-toggle="navbar-cta" type="button"
