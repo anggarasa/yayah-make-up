@@ -3,10 +3,11 @@
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/img/logo/logo-ym.svg" class="h-8" alt="Yayah Make up Logo" />
     </a>
-    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button type="button" class="text-white font-poppins text-sm text-center mr-14">DAFTAR</button>
-      <button type="button"
-        class="text-ungu-dark bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold text-sm px-7 py-2 text-center">MASUK</button>
+    <div class="flex md:order-2 items-center space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <a href="{{ route('register') }}" wire:navigate
+        class="text-white font-poppins text-sm text-center mr-14">DAFTAR</a>
+      <a href="{{ route('login') }}" wire:navigate
+        class="text-ungu-dark bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold text-sm px-7 py-2 text-center">MASUK</a>
       <button data-collapse-toggle="navbar-cta" type="button"
         class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         aria-controls="navbar-cta" aria-expanded="false">
