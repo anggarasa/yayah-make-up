@@ -1,21 +1,31 @@
-<div class="grid max-w-screen-xl max-h-full px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-  <div data-aos="fade-right" data-aos-duration="2000" class="mr-auto place-self-center lg:col-span-7">
-    <h1 class="max-w-2xl text-white mb-10 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-5xll">
-      Temukan Galeri Pernikahan Impian Anda
-    </h1>
-    <p class="max-w-2xl mb-6 font-light text-gray-200 lg:mb-8 md:text-lg lg:text-xl"><span class="font-bold text-white">
-        Yayah Make Up</span> menyediakan pilihan terbaik untuk perencanaan hari besar Anda, mulai dari fotografi
-      hingga rias pengantin dengan sumber terpercaya</p>
-    <div class="flex items-center">
-      <a href="#"
-        class="inline-flex mt-6 items-center bg-white justify-center px-8 py-3 text-base font-medium text-center text-ungu-dark rounded-lg hover:bg-gray-400 focus:ring-4 focus:ring-gray-100">
-        Sewa Sekarang
-      </a>
-      <i class="fa-solid fa-chevron-right text-white text-xl mt-7 ml-7"></i>
+<div class="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 lg:px-8 lg:py-16">
+  <div class="flex flex-col lg:flex-row lg:items-center">
+    <!-- Bagian Kiri (Teks dan Tombol) -->
+    <div data-aos="fade-right" data-aos-duration="2000" class="lg:w-1/2 lg:pr-8 mb-8 lg:mb-0">
+      <!-- Heading -->
+      <h1
+        class="text-white mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+        Temukan Galeri Pernikahan Impian Anda
+      </h1>
+      <!-- Paragraf -->
+      <p class="mb-6 font-light text-gray-200 text-base sm:text-lg lg:text-xl">
+        <span class="font-bold text-white">Yayah Make Up</span> menyediakan pilihan terbaik untuk perencanaan hari besar
+        Anda, mulai dari fotografi hingga rias pengantin dengan sumber terpercaya.
+      </p>
+      <!-- Tombol dan Icon -->
+      <div class="flex items-center flex-wrap">
+        <a href="#"
+          class="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-center text-ungu-dark bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 transition duration-300 ease-in-out">
+          Sewa Sekarang
+        </a>
+        <i class="fa-solid fa-chevron-right text-white text-lg sm:text-xl ml-4"></i>
+      </div>
     </div>
-  </div>
-  <div class="hidden lg:mt-32 lg:col-span-5 lg:-mb-64 lg:flex">
-    <img data-aos="flip-down" data-aos-duration="2000" class="rounded-xl object-cover w-full"
-      src="/img/component/componen-beranda.svg" alt="Yayah Make Up">
+
+    <!-- Bagian Kanan (Gambar) -->
+    <div class="lg:w-1/2">
+      <img data-aos="flip-down" data-aos-duration="2000" class="rounded-xl object-cover w-full h-auto shadow-lg"
+        src="/img/component/componen-beranda.svg" alt="Yayah Make Up">
+    </div>
   </div>
 </div>

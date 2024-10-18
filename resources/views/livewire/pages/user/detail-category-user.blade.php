@@ -1,13 +1,93 @@
 <div>
+    {{-- Kategory product Start --}}
+    <div class="flex flex-col items-center pt-20 pb-4 bg-white">
+        <h2 class="text-2xl font-bold mb-4">Paket Wedding</h2>
+        <div class="flex flex-wrap justify-center items-baseline space-x-4 space-y-4">
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Akad" height="40" src="/img/logo/akad.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Akad
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Melati" height="40" src="/img/logo/melati.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Melati
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Mawar" height="40" src="/img/logo/mawar.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Mawar
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Teratai" height="40" src="/img/logo/teratai.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Teratai
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Tulip" height="40" src="/img/logo/tulip.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Tulip
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Silver" height="40" src="/img/logo/silver.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Silver
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Gold" height="40" src="/img/logo/gold.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Gold
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Paket Jasa Make Up & Kostum" height="40" src="/img/logo/jasa-make-up.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Paket Jasa<br>Make Up<br>& Kostum
+                </span>
+            </div>
+            <div class="flex flex-col items-center w-24">
+                <div class="w-16 h-16 flex justify-center items-center bg-white border rounded-lg">
+                    <img alt="Daftar Harga Custom (Request)" height="40" src="/img/logo/custom.png" width="40" />
+                </div>
+                <span class="text-sm mt-2 text-center">
+                    Daftar Harga<br>Custom<br>(Request)
+                </span>
+            </div>
+        </div>
+    </div>
+    {{-- Kategory product End --}}
+
     {{-- Product list Start --}}
-    <div class="mx-auto max-w-screen-xl py-28 px-4 2xl:px-0">
+    <div class="mx-auto max-w-screen-xl my-10 px-4 2xl:px-0">
         <div class="bg-white border-b-4 pt-5 mb-5 border-ungu-dark">
             <h2 class="text-center text-xl font-bold text-ungu-dark mb-4">
                 SEMUA PAKET WEDDING
             </h2>
         </div>
         <div wire:poll class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-            @foreach ($products as $product)
+            @foreach ($productCategory as $product)
             <a href="{{ route('detail-product-user', $product->id) }}" wire:navigate
                 class="rounded-lg border border-gray-200 bg-white shadow-sm hover:border-ungu-dark">
                 <div class="w-full h-56 overflow-hidden">
@@ -127,11 +207,9 @@
             @endforeach
         </div>
         <div class="w-full text-center">
-            @if ($products->count() < $totalData) <button type="button" wire:click="loadMore"
-                class="rounded-lg border border-ungu-white bg-ungu-dark px-5 py-2.5 text-sm font-medium text-white hover:bg-ungu-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100">
-                Show more
-                </button>
-                @endif
+            <button type="button"
+                class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">Show
+                more</button>
         </div>
     </div>
     {{-- Product list End --}}

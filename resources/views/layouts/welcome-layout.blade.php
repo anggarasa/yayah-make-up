@@ -20,23 +20,13 @@
     {{-- Aos Css --}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    {{-- Css Custom --}}
+    <link rel="stylesheet" href="/css/welcome-layout.css">
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles
-
-    {{-- Style Css Start --}}
-    <style>
-        .bg-titik {
-            background-image: url('/img/component/componen-bg-titik-kiri.svg');
-            background-position: left top;
-            background-repeat: no-repeat;
-            background-size: contain;
-            margin-left: 20px;
-            /* atau 'cover', sesuai kebutuhan */
-        }
-    </style>
-    {{-- Style Css End --}}
 </head>
 
 <body class="font-poppins bg-gray-100 text-gray-900 antialiased">
