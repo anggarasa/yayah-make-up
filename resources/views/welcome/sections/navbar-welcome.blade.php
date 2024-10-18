@@ -42,49 +42,65 @@
       </button>
     </div>
 
-    <!-- Mobile Menu -->
-    <div
-      class="items-center justify-between w-full md:flex md:w-auto md:order-1 absolute md:relative top-full left-0 right-0 bg-black/80 md:bg-transparent z-10"
-      x-show="isOpen" x-transition:enter="transition ease-out duration-200"
-      x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100"
-      x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 transform scale-100"
-      x-transition:leave-end="opacity-0 transform scale-95" x-cloak>
-      <ul
-        class="flex flex-col font-poppins p-4 md:p-0 mt-0 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+    <!-- Navigation Menu (Mobile & Desktop) -->
+    <div class="w-full md:flex md:w-auto md:order-1"
+      :class="{'absolute top-full left-0 right-0 bg-black/80': !$screen('md')}"
+      @click.away="if (!$screen('md')) isOpen = false">
+      <!-- Mobile Menu (shown/hidden with x-show) -->
+      <div class="md:hidden" x-show="isOpen" x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-95" x-cloak>
+        <ul class="flex flex-col font-poppins p-4 rounded-lg">
+          <li>
+            <a href="#beranda" class="block py-2 px-3 text-white hover:bg-ungu-dark/50 rounded-lg"
+              @click="isOpen = false" aria-current="page">BERANDA</a>
+          </li>
+          <li>
+            <a href="#layanan" class="block py-2 px-3 text-white hover:bg-ungu-dark/50 rounded-lg"
+              @click="isOpen = false">LAYANAN</a>
+          </li>
+          <li>
+            <a href="#dekorasi" class="block py-2 px-3 text-white hover:bg-ungu-dark/50 rounded-lg"
+              @click="isOpen = false">DEKORASI</a>
+          </li>
+          <li>
+            <a href="#wedding" class="block py-2 px-3 text-white hover:bg-ungu-dark/50 rounded-lg"
+              @click="isOpen = false">GALLERY</a>
+          </li>
+          <li>
+            <a href="#contact" class="block py-2 px-3 text-white hover:bg-ungu-dark/50 rounded-lg"
+              @click="isOpen = false">CONTACT</a>
+          </li>
+          <!-- Mobile-only auth buttons -->
+          @guest('web')
+          @guest('admin')
+          <li class="md:hidden">
+            <a href="{{ route('register') }}" wire:navigate
+              class="block py-2 px-3 text-white hover:bg-ungu-dark/50 rounded-lg" @click="isOpen = false">DAFTAR</a>
+          </li>
+          @endguest
+          @endguest
+        </ul>
+      </div>
+
+      <!-- Desktop Menu (always visible on md and up) -->
+      <ul class="hidden md:flex font-poppins space-x-8 rtl:space-x-reverse items-center">
         <li>
-          <a href="#beranda"
-            class="block py-2 px-3 md:p-0 text-white hover:bg-ungu-dark/50 md:hover:bg-transparent md:hover:text-gray-100 rounded-lg"
-            @click="isOpen = false" aria-current="page">BERANDA</a>
+          <a href="#beranda" class="block py-2 text-white hover:text-gray-100" aria-current="page">BERANDA</a>
         </li>
         <li>
-          <a href="#layanan"
-            class="block py-2 px-3 md:p-0 text-white hover:bg-ungu-dark/50 md:hover:bg-transparent md:hover:text-gray-100 rounded-lg"
-            @click="isOpen = false">LAYANAN</a>
+          <a href="#layanan" class="block py-2 text-white hover:text-gray-100">LAYANAN</a>
         </li>
         <li>
-          <a href="#dekorasi"
-            class="block py-2 px-3 md:p-0 text-white hover:bg-ungu-dark/50 md:hover:bg-transparent md:hover:text-gray-100 rounded-lg"
-            @click="isOpen = false">DEKORASI</a>
+          <a href="#dekorasi" class="block py-2 text-white hover:text-gray-100">DEKORASI</a>
         </li>
         <li>
-          <a href="#wedding"
-            class="block py-2 px-3 md:p-0 text-white hover:bg-ungu-dark/50 md:hover:bg-transparent md:hover:text-gray-100 rounded-lg"
-            @click="isOpen = false">GALLERY</a>
+          <a href="#wedding" class="block py-2 text-white hover:text-gray-100">GALLERY</a>
         </li>
         <li>
-          <a href="#contact"
-            class="block py-2 px-3 md:p-0 text-white hover:bg-ungu-dark/50 md:hover:bg-transparent md:hover:text-gray-100 rounded-lg"
-            @click="isOpen = false">CONTACT</a>
+          <a href="#contact" class="block py-2 text-white hover:text-gray-100">CONTACT</a>
         </li>
-        <!-- Mobile-only auth buttons -->
-        @guest('web')
-        @guest('admin')
-        <li class="md:hidden">
-          <a href="{{ route('register') }}" wire:navigate
-            class="block py-2 px-3 text-white hover:bg-ungu-dark/50 rounded-lg" @click="isOpen = false">DAFTAR</a>
-        </li>
-        @endguest
-        @endguest
       </ul>
     </div>
   </div>
