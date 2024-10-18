@@ -1,0 +1,81 @@
+.bg-titik {
+    background-image: url("/img/component/componen-bg-titik-kiri.svg");
+    background-position: left top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 20px;
+    /* atau 'cover', sesuai kebutuhan */
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@media (max-width: 640px) {
+    h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .grid {
+        gap: 1rem;
+    }
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .fa-chevron-right {
+        display: none;
+    }
+
+    #slider > div {
+        width: 85%;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    #slider > div {
+        width: 45%;
+    }
+
+    .grid {
+        gap: 1.5rem;
+    }
+
+    .aspect-w-16 {
+        position: relative;
+        padding-bottom: 56.25%;
+        /* 16:9 Aspect Ratio */
+    }
+
+    .aspect-w-16 > img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+    }
+}
+
+@media (min-width: 769px) {
+    .grid {
+        gap: 2rem;
+    }
+
+    #slider > div {
+        width: 30%;
+    }
+}

@@ -1,20 +1,20 @@
 <div>
     {{-- Product list Start --}}
-    <div class="mx-auto max-w-screen-xl py-28 px-4 2xl:px-0">
+    <div class="mx-auto max-w-screen-xl pt-28 px-4 2xl:px-0">
         <div class="bg-white border-b-4 pt-5 mb-5 border-ungu-dark">
             <h2 class="text-center text-xl font-bold text-ungu-dark mb-4">
-                SEMUA PAKET WEDDING
+                KATEGORI {{ $category->name }}
             </h2>
         </div>
         <div wire:poll class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-            @foreach ($products as $product)
-            <a href="{{ route('detail-product-user', $product->id) }}" wire:navigate
+            @foreach ($category->products as $item)
+            <a href="{{ route('detail-product-user', $item->id) }}" wire:navigate
                 class="rounded-lg border border-gray-200 bg-white shadow-sm hover:border-ungu-dark">
                 <div class="w-full h-56 overflow-hidden">
                     <img class="w-full h-full object-cover rounded-t-lg"
-                        src="{{ asset('storage/'. $product->cover_image) }}" alt="{{ $product->title }}" />
+                        src="{{ asset('storage/'. $item->cover_image) }}" alt="{{ $item->title }}" />
                     <img class="w-full h-full object-cover hidden dark:block"
-                        src="{{ asset('storage/'. $product->cover_image) }}" alt="{{ $product->title }}" />
+                        src="{{ asset('storage/'. $item->cover_image) }}" alt="{{ $item->title }}" />
                 </div>
                 <div class="p-6">
                     <div class="mb-4 flex items-center justify-between gap-4">
@@ -61,7 +61,7 @@
                     </div>
 
                     <p class="text-lg font-semibold leading-tight text-gray-900">
-                        {{ $product->title }}
+                        {{ $item->title }}
                     </p>
 
                     <div class="mt-2 flex items-center gap-2">
@@ -120,18 +120,16 @@
 
                     <div class="mt-4 flex items-center justify-between gap-4">
                         <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">{{
-                            $product->formatted_harga }}</p>
+                            $item->formatted_harga }}</p>
                     </div>
                 </div>
             </a>
             @endforeach
         </div>
         <div class="w-full text-center">
-            @if ($products->count() < $totalData) <button type="button" wire:click="loadMore"
-                class="rounded-lg border border-ungu-white bg-ungu-dark px-5 py-2.5 text-sm font-medium text-white hover:bg-ungu-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100">
-                Show more
-                </button>
-                @endif
+            <button type="button"
+                class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">Show
+                more</button>
         </div>
     </div>
     {{-- Product list End --}}
