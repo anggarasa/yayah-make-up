@@ -33,7 +33,7 @@
   {{-- Contact Start --}}
   <section id="contact" class="min-h-screen bg-cover "
     style="background-image: url('/img/component/bg-foter-welcome.jpg')">
-    @include('welcome.sections.contact-welcome')
+    <livewire:pages.welcome.contact-welcome>
   </section>
   {{-- Contact End --}}
 

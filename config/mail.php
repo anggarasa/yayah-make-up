@@ -113,4 +113,13 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+
+    // Ubah poengaturan css menjadi menggunakan custom.css
+    'markdown' => [
+        'theme' => 'custom', // Ubah dari 'default' ke 'custom'
+        'paths' => [
+            resource_path('views/vendor/mail'),
+        ],
+    ],
+
 ];

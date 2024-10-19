@@ -1,0 +1,121 @@
+/* resources/views/vendor/mail/html/themes/custom.css */
+
+/* Base */
+body {
+    background-color: #f8f8f8;
+    color: #2d3748;
+}
+
+.wrapper {
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.content {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+/* Header */
+.header {
+    padding: 25px 0;
+    text-align: center;
+    background-color: #7a1cac;
+}
+
+.header a {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Body */
+.body {
+    background-color: #ffffff;
+    border-bottom: 1px solid #edeff2;
+    border-top: 1px solid #edeff2;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.inner-body {
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 0;
+    width: 570px;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+}
+
+/* Panel */
+.panel {
+    background-color: #f8f2ff;
+    border-left: 4px solid #7a1cac;
+    margin: 21px 0;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+/* Button */
+.button {
+    border-radius: 4px;
+    color: #fff;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-text-size-adjust: none;
+    background-color: #7a1cac;
+    border-top: 10px solid #7a1cac;
+    border-right: 18px solid #7a1cac;
+    border-bottom: 10px solid #7a1cac;
+    border-left: 18px solid #7a1cac;
+}
+
+/* Table */
+.table table {
+    margin: 30px auto;
+    width: 100%;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+}
+
+.table th {
+    border-bottom: 1px solid #edeff2;
+    margin: 0;
+    padding-bottom: 8px;
+    color: #7a1cac;
+}
+
+.table td {
+    color: #2d3748;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Footer */
+.footer {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 570px;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+}
