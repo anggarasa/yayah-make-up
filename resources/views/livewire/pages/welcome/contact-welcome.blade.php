@@ -76,11 +76,11 @@
                             </div>
 
                             <div class="w-full mt-6">
-                                <x-input-label for="message" :value="__('Pertanyaan')" />
-                                <textarea id="message" wire:model="message"
+                                <x-input-label for="question" :value="__('Pertanyaan')" />
+                                <textarea id="question" wire:model="question"
                                     class="block w-full h-32 px-4 sm:px-5 py-2.5 sm:py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-black rounded-md md:h-48 focus:border-ungu-dark focus:ring-ungu-dark focus:ring-opacity-40 focus:outline-none focus:ring"
                                     placeholder="Message"></textarea>
-                                <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('question')" class="mt-2" />
                             </div>
 
                             <button type="submit"

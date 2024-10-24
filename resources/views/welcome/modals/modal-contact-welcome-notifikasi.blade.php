@@ -1,5 +1,5 @@
 {{-- Modal Success Start --}}
-<div x-data="{ open: false }" x-show="open" @contact-success.window="open = true; setTimeout(() => open = false, 3000)"
+<div x-data="{ open: false }" x-show="open" @contact-success.window="open = true"
   @close-contact-success.window="open = false" x-transition:enter="transition ease-out duration-300"
   x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100"
   x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100"
@@ -42,7 +42,7 @@
       <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">{{ $judul }}</h3>
       <div class="mt-2 px-7 py-3">
         <p class="text-sm text-gray-500">
-          {{ $pesan }}
+          {!! $pesan !!}
         </p>
       </div>
       <div class="items-center px-4 py-3">

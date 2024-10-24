@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\QuestionWelcome;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,23 +14,20 @@ class ContactWelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name, $email, $message;
+    public $question;
     
     /**
      * Create a new message instance.
      */
-    public function __construct($name, $email, $message)
+    public function __construct(QuestionWelcome $question)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->message = $message;
+        $this->question = $question;
     }
 
     public function build()
     {
         return $this->markdown('emails.contact-welcome-mail')
-                    ->subject('Pesan Baru dari Form Kontak')
-                    ->replyTo($this->email);
+                    ->subject('Pertanyaan Anda Telah Dijawab');
     }
 
     /**

@@ -2,20 +2,25 @@
 
 namespace App\Livewire\Pages\Welcome;
 
-use App\Mail\ContactWelcomeMail;
-use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use Livewire\Volt\Volt;
+use App\Models\QuestionWelcome;
+use App\Mail\ContactWelcomeMail;
+use App\Events\NewQuestionReceived;
+use App\Events\QuestionMessageEvent;
+use Illuminate\Support\Facades\Mail;
+use App\Livewire\Layout\Admin\Sidebar;
 
 class ContactWelcome extends Component
 {
-    public $name, $email, $message;
+    public $name, $email, $question;
 
     public $judul, $pesan;
 
     protected $rules = [
         'name' => 'required|string|min:3|max:255',
         'email' => 'required|email:dns,rfc',
-        'message' => 'required|min:10'
+        'question' => 'required|min:10'
     ];
 
     public function submit()
@@ -23,9 +28,17 @@ class ContactWelcome extends Component
         try {
             $this->validate();
 
-            Mail::to('anggarasaputra273@gmail.com')->send(new ContactWelcomeMail($this->name, $this->email, $this->message));
+            QuestionWelcome::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'question' => $this->question,
+                'is_read' => false,
+            ]);
+            
+            $this->reset(['name', 'email', 'question']);
 
-            $this->reset(['name', 'email', 'message']);
+            $unreadCount = QuestionWelcome::where('is_read', false)->count();
+            QuestionMessageEvent::dispatch($unreadCount);
 
             $this->judul = "Success!";
             $this->pesan = "Terimakasih atas pesan Anda. Kami akan segera menghubungi Anda.";

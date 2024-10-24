@@ -7,26 +7,22 @@
     alt="Logo" style="max-width: 200px;">
 </div>
 
-# Respon Baru Diterima!
+# Pertanyaan Anda Telah Dijawab!
 
-Hello Yayah Make Up,
+Hello {{ $question->name }},
 
-Anda telah menerima respons baru dari formulir kontak situs web Anda.
-
-@component('mail::panel')
-## Rincian Respons
-**Name:** {{ $name }}<br>
-**Email:** {{ $email }}
-@endcomponent
+Anda telah menerima jawaban pertanyaan dari Yayah Make Up.
 
 @component('mail::panel')
-## Konten Pertanyaan
-{{ $message }}
+## Pertanyaan Anda:
+{{ $question->question }}
 @endcomponent
 
-@component('mail::subcopy')
-Ini adalah pesan otomatis dari formulir kontak situs web Anda.
+@component('mail::panel')
+## Jawaban:
+{{ $question->answer }}
 @endcomponent
+
 
 Terimaksih,<br>
 {{ config('app.name') }}
