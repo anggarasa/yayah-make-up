@@ -8,6 +8,8 @@ use App\Livewire\Pages\Admin\Product\Paket\DeleteProduct;
 use App\Livewire\Pages\Admin\Product\Paket\ListProduct;
 use App\Livewire\Pages\Admin\Product\Paket\ShowProduct;
 use App\Livewire\Pages\Admin\Product\Paket\UpdateProduct;
+use App\Livewire\Pages\Admin\Question\ListQuestionWelcome;
+use App\Livewire\Pages\Admin\Question\ShowQuestionWelcome;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
@@ -30,5 +32,10 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/baju-pernikahan', BajuPernikahan::class)->name('baju-pernikahan');
     Route::get('/baju-pernikahan/create', CrudBajuPernikahan::class)->name('baju-pernikahan-create');
     Route::get('/baju-pernikahan/{id}/edit', CrudBajuPernikahan::class)->name('baju-pernikahan-update');
+  });
+
+  Route::prefix('question')->group(function() {
+    Route::get('/list-question', ListQuestionWelcome::class)->name('list-question');
+    Route::get('/show-question/{question}', ShowQuestionWelcome::class)->name('show-question');
   });
 });

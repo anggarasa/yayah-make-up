@@ -65,7 +65,7 @@
     <div class="antialiased bg-gray-100 font-poppins">
         <livewire:layout.admin.admin-navbar />
 
-        @include('admin.sidebar')
+        <livewire:layout.admin.sidebar />
         <main class="p-4 md:ml-72 h-auto pt-20">
             {{ $slot }}
         </main>
