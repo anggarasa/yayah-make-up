@@ -24,7 +24,7 @@ new class extends Component
     }
 }; ?>
 
-<nav class="bg-ungu-dark fixed w-full z-50" x-data="{ open: false, profileOpen: false }">
+<nav class="bg-ungu-dark" x-data="{ open: false, profileOpen: false }">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->

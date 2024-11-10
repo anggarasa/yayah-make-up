@@ -16,23 +16,10 @@
     {{-- Font Awesome Icons --}}
     <script src="https://kit.fontawesome.com/9d4da73c07.js" crossorigin="anonymous"></script>
 
+    {{-- css custom --}}
     <style>
-        .quill-content ol {
-            list-style-type: decimal;
-            padding-left: 1.5em;
-        }
-
-        .quill-content ol>li {
-            display: list-item;
-            margin-bottom: 0.5em;
-        }
-
-        .quill-content ol>li::before {
-            content: none;
-        }
-
-        .quill-content .ql-ui {
-            display: none;
+        [x-cloak] {
+            display: none !important;
         }
     </style>
 
@@ -42,12 +29,11 @@
     @livewireStyles
 </head>
 
-<body class="font-poppins antialiased">
-    <div class="min-h-screen bg-gray-100">
-        <livewire:layout.user.user-navbar />
-        <main class="pt-20 lg:pt-32">
-            {{ $slot }}
-        </main>
+<body class="font-poppins antialiased bg-gray-100">
+    <livewire:layout.user.user-navbar-profile />
+    <div class="flex flex-col md:flex-row min-h-screen">
+        @include('user.sidebar-profile-user')
+        {{ $slot }}
     </div>
 
     @livewireScripts

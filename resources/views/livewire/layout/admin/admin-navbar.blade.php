@@ -12,7 +12,7 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/');;
+        $this->redirect('/');
     }
 }; ?>
 

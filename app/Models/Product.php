@@ -37,6 +37,11 @@ class Product extends Model
     {
         return $this->belongsToMany(BajuPernikahan::class, 'product_baju')->withTimestamps();
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_product')->withTimestamps();
+    }
     // Many to many End
 
     // Format Product Start
