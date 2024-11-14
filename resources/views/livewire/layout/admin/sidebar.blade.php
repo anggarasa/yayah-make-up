@@ -79,6 +79,19 @@
                     </a>
                 </li>
                 <li>
+                    <x-sidebar-link href="{{ route('order.daftar-order') }}" wire:navigate
+                        :active="request()->is('admin/order/daftar-order')">
+                        <i class="fa-solid fa-cart-shopping flex-shrink-0 text-2xl transition duration-75"></i>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Daftar Pesanan</span>
+                        @if ($unreadCount > 0)
+                        <span
+                            class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-white bg-ungu-white">
+                            {{ $unreadCount }}
+                        </span>
+                        @endif
+                    </x-sidebar-link>
+                </li>
+                <li>
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-authentication" data-collapse-toggle="dropdown-authentication">

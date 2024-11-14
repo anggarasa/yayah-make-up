@@ -2,6 +2,8 @@
 
 use App\Livewire\Pages\Admin\Category\Product\CategoryProduct;
 use App\Livewire\Pages\Admin\Crud\Baju\CrudBajuPernikahan;
+use App\Livewire\Pages\Admin\Order\DaftarOrder;
+use App\Livewire\Pages\Admin\Order\ShowOrder;
 use App\Livewire\Pages\Admin\Product\Baju\BajuPernikahan;
 use App\Livewire\Pages\Admin\Product\Paket\CreateProduct;
 use App\Livewire\Pages\Admin\Product\Paket\DeleteProduct;
@@ -37,5 +39,10 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
   Route::prefix('question')->group(function() {
     Route::get('/list-question', ListQuestionWelcome::class)->name('list-question');
     Route::get('/show-question/{question}', ShowQuestionWelcome::class)->name('show-question');
+  });
+
+  Route::prefix('order')->name('order.')->group(function() {
+    Route::get('/daftar-order', DaftarOrder::class)->name('daftar-order');
+    Route::get('/show-order/{order}', ShowOrder::class)->name('show-order');
   });
 });

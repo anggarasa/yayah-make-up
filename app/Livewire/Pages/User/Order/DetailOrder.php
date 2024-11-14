@@ -13,12 +13,19 @@ use Livewire\Attributes\On;
 class DetailOrder extends Component
 {
     public Order $order;
+    public $showFullDescription = false;
+    public $descriptionLimit = 225; // Batasan karakter untuk tampilan awal
 
     public $judul, $message;
 
     public function mount(Order $order)
     {
         $this->order = $order;
+    }
+
+    public function toggleDescription()
+    {
+        $this->showFullDescription = !$this->showFullDescription;
     }
 
     public function payment()
@@ -65,7 +72,6 @@ class DetailOrder extends Component
     public function handlePaymentSuccess($result)
     {
         $this->order->update([
-            'status' => 'diproses',
             'status_payment' => $result['transaction_status'],
             'payment_type' => $result['payment_type'],
         ]);

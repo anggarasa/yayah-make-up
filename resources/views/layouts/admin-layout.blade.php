@@ -52,6 +52,11 @@
             scrollbar-width: none;
             /* Firefox */
         }
+
+        .description-transition {
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+        }
     </style>
 
     <!-- Scripts -->

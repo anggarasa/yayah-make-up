@@ -21,20 +21,70 @@
             <!-- Card Produk -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
                 <div class="flex flex-col md:flex-row gap-6">
+                    <!-- Gambar Produk -->
                     <div class="w-full md:w-1/3">
                         <img src="{{ asset('storage/'. $order->product->cover_image) }}"
                             class="w-full h-48 object-cover rounded-lg" alt="Produk">
                     </div>
+
+                    <!-- Detail Produk dan Informasi Pelanggan -->
                     <div class="flex-1">
+                        <!-- Judul Produk -->
                         <h2 class="text-xl font-semibold mb-2">{{ $order->product->title }}</h2>
 
+                        <!-- Kategori Produk -->
+                        <p class="text-sm text-gray-500 mb-4">Kategori: {{ $order->product->categoryProduct->name ??
+                            'Tidak ada
+                            kategori' }}</p>
+
+                        <!-- Deskripsi Produk -->
+                        <div x-data="{ expanded: false }" class="mb-4">
+                            <h3 class="text-lg font-semibold">Deskripsi</h3>
+                            <div class="text-gray-700 quill-content">
+                                @if(strlen($order->product->description) > $descriptionLimit)
+                                <div x-show="!expanded">
+                                    {!! Str::limit($order->product->description, $descriptionLimit, '') !!}
+                                    <span class="text-gray-400">...</span>
+                                </div>
+                                <div x-show="expanded" x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                    x-transition:enter-end="opacity-100 transform translate-y-0">
+                                    {!! $order->product->description !!}
+                                </div>
+                                <button @click="expanded = !expanded"
+                                    class="mt-2 text-[#7A1CAC] hover:text-[#6A189C] text-sm font-medium focus:outline-none">
+                                    <span x-text="expanded ? 'Lihat lebih sedikit' : 'Lihat lebih banyak'"></span>
+                                </button>
+                                @else
+                                {!! $order->product->description !!}
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Informasi Customer -->
+                        <div class="mb-4">
+                            <h3 class="text-lg font-semibold">Informasi Pelanggan</h3>
+                            <p class="text-sm text-gray-500">Nama: {{ $order->customer_name }}</p>
+                            <p class="text-sm text-gray-500">Email: {{ $order->customer_email }}</p>
+                            <p class="text-sm text-gray-500">Nomor Telepon: {{ $order->customer_phone }}</p>
+                            <p class="text-sm text-gray-500">Alamat: {{ $order->customer_address }}</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h3 class="text-lg font-semibold">Tanggal Acara</h3>
+                            <p class="text-sm text-gray-500">Tanggal Pernikahan: {{
+                                \Carbon\Carbon::parse($order->tanggal_pernikahan)->format('d M Y') }}</p>
+                        </div>
+
+                        <!-- Pilihan Gaun Akad dan Resepsi -->
                         <div class="flex flex-wrap gap-10">
+                            <!-- Gaun Akad -->
                             @if ($order->akadDress)
                             @php
-                            $akad = $order->akadDress
+                            $akad = $order->akadDress;
                             @endphp
                             <div>
-                                <p class="text-sm text-gray-500">{{ $akad->name }}</p>
+                                <p class="text-sm text-gray-500">Gaun Akad</p>
                                 <div class="border w-32 rounded-lg p-2">
                                     <img src="{{ asset('storage/file-dress/'. $akad->image_dress) }}"
                                         class="w-32 h-32 rounded-lg object-cover mb-2" alt="{{ $akad->name }}">
@@ -43,69 +93,92 @@
                             </div>
                             @endif
 
+                            <!-- Gaun Resepsi -->
                             @if ($order->resepsiDresses)
                             @foreach ($order->resepsiDresses as $resepsi)
                             <div>
-                                <p class="text-sm text-gray-500">{{ $resepsi->name }}</p>
-                                <div class="flex items-center space-x-4">
-                                    <div class="border w-32 rounded-lg p-2">
-                                        <img src="{{ asset('storage/file-dress/'. $resepsi->image_dress) }}"
-                                            class="w-32 h-32 rounded-lg object-cover mb-2" alt="{{ $resepsi->name }}">
-                                        <p class="text-sm text-center">{{ $resepsi->name }}</p>
-                                    </div>
+                                <p class="text-sm text-gray-500">Gaun Resepsi</p>
+                                <div class="border w-32 rounded-lg p-2">
+                                    <img src="{{ asset('storage/file-dress/'. $resepsi->image_dress) }}"
+                                        class="w-32 h-32 rounded-lg object-cover mb-2" alt="{{ $resepsi->name }}">
+                                    <p class="text-sm text-center">{{ $resepsi->name }}</p>
                                 </div>
                             </div>
                             @endforeach
                             @endif
                         </div>
-
-                        @if(!$order->akadDress && !$order->resepsiDresses->count() && $order->product &&
-                        $order->product->description)
-                        <div class="text-gray-600 mb-4 quill-content">
-                            {!! Str::limit($order->product->description, 500, '...') !!}
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>
+
 
             <!-- Status Pembayaran -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
                 <h3 class="text-lg font-semibold mb-4">Status Pembayaran</h3>
 
-                @if($order->status_payment == 'pending')
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center">
-                        <i class="fa-regular fa-clock text-xl text-yellow-600"></i>
-                    </div>
+                @if($order->status === 'pembayaran')
+                @if($order->status_payment === 'pending')
+                <div class="flex items-center space-x-3 p-4 bg-yellow-100 text-yellow-700 rounded-lg">
+                    <i class="fas fa-clock text-2xl"></i>
                     <div>
-                        <p class="font-semibold text-yellow-600">Menunggu Pembayaran</p>
-                        <p class="text-sm text-gray-500">Bayar sebelum 24 jam</p>
+                        <p class="font-semibold">Menunggu Pembayaran</p>
+                        <p class="text-sm">Silahkan lakukan pembayaran untuk melanjutkan.</p>
+                    </div>
+                </div>
+                @elseif($order->status_payment === 'settlement')
+                <div class="flex items-center space-x-3 p-4 bg-green-100 text-green-700 rounded-lg">
+                    <i class="fas fa-check-circle text-2xl"></i>
+                    <div>
+                        <p class="font-semibold">Pembayaran Berhasil</p>
+                        <p class="text-sm">Order akan segera diproses.</p>
+                    </div>
+                </div>
+                @elseif(in_array($order->status_payment, ['failed', 'deny']))
+                <div class="flex items-center space-x-3 p-4 bg-red-100 text-red-700 rounded-lg">
+                    <i class="fas fa-times-circle text-2xl"></i>
+                    <div>
+                        <p class="font-semibold">Pembayaran Gagal</p>
+                        <p class="text-sm">Silahkan coba kembali untuk melakukan pembayaran.</p>
+                    </div>
+                </div>
+                @elseif($order->status_payment === 'expired')
+                <div class="flex items-center space-x-3 p-4 bg-gray-100 text-gray-700 rounded-lg">
+                    <i class="fas fa-exclamation-circle text-2xl"></i>
+                    <div>
+                        <p class="font-semibold">Pembayaran Kadaluarsa</p>
+                        <p class="text-sm">Waktu pembayaran telah berakhir.</p>
                     </div>
                 </div>
                 @endif
-
-                @if($order->status_payment == 'settlement')
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                        <i class="fa-solid fa-check text-xl text-green-600"></i>
+                @else
+                <!-- Order Status -->
+                <div class="space-y-2">
+                    @if($order->status === 'diproses')
+                    <div class="flex items-center space-x-3 p-4 bg-blue-100 text-blue-700 rounded-lg">
+                        <i class="fas fa-spinner text-2xl"></i>
+                        <div>
+                            <p class="font-semibold">Pesanan Sedang Diproses</p>
+                            <p class="text-sm">Admin akan mengabari 1 minggu sebelum tanggal pernikahan.
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="font-semibold text-green-600">Pembayaran Berhasil</p>
-                        <p class="text-sm text-gray-500">Pesanan anda akan diproses</p>
+                    @elseif($order->status === 'dikirim')
+                    <div class="flex items-center space-x-3 p-4 bg-purple-100 text-purple-700 rounded-lg">
+                        <i class="fas fa-truck text-2xl"></i>
+                        <div>
+                            <p class="font-semibold">Dekorasi Sedang Dikirim</p>
+                            <p class="text-sm">Dekorasi akan segera tiba di alamat tujuan.</p>
+                        </div>
                     </div>
-                </div>
-                @endif
-
-                @if($order->status_payment == 'cancel')
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                        <i class="fa-solid fa-x text-xl text-red-600"></i>
+                    @elseif($order->status === 'selesai')
+                    <div class="flex items-center space-x-3 p-4 bg-green-100 text-green-700 rounded-lg">
+                        <i class="fas fa-check-circle text-2xl"></i>
+                        <div>
+                            <p class="font-semibold">Pesanan Selesai</p>
+                            <p class="text-sm">Terima kasih telah menggunakan layanan kami.</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="font-semibold text-red-600">Pembayaran Gagal</p>
-                        <p class="text-sm text-gray-500">Anda harus memesan kembali paket pernikahan</p>
-                    </div>
+                    @endif
                 </div>
                 @endif
 
@@ -138,12 +211,14 @@
                         Kembali
                     </a>
 
-                    @if ($order->status === 'pembayaran' && $order->status_payment === 'pending')
+                    @if ($order->status_payment === 'pending' || $order->status_payment == 'deny' ||
+                    $order->status_payment == 'failed' || $order->status_payment ==
+                    'expire')
                     <button wire:click="payment"
                         class="flex-1 bg-ungu-dark hover:bg-ungu-dark/90 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                         Bayar
                     </button>
-                    @elseif ($order->status === 'diproses')
+                    @elseif ($order->status_payment === 'settlement')
                     <button wire:click="contactSeller"
                         class="flex-1 bg-ungu-dark hover:bg-ungu-dark/90 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                         Hubungi Penjual
