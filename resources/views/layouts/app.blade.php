@@ -16,6 +16,8 @@
     {{-- Font Awesome Icons --}}
     <script src="https://kit.fontawesome.com/9d4da73c07.js" crossorigin="anonymous"></script>
 
+    @livewireStyles
+
     <style>
         .quill-content ol {
             list-style-type: decimal;
@@ -34,12 +36,25 @@
         .quill-content .ql-ui {
             display: none;
         }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
     </style>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @livewireStyles
 </head>
 
 <body class="font-poppins antialiased">

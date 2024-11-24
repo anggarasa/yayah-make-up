@@ -1,4 +1,4 @@
 <a {{ $attributes }}
-    class="flex items-center p-2 text-base font-medium rounded-lg hover:text-ungu-dark hover:bg-ungu-tipis group {{ $active ? 'text-ungu-dark bg-ungu-tipis' : 'text-gray-900'}}">
+    class="flex items-center p-2 text-base font-medium rounded-lg hover:text-white hover:bg-ungu-dark group {{ $active ? 'text-white bg-ungu-dark' : 'text-gray-900'}}">
     {{ $slot }}
 </a>

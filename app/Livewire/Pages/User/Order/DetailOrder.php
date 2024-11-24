@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Pages\User\Order;
 
+use App\Models\AdminUser;
 use Midtrans\Snap;
 use Midtrans\Config;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Notifications\OrderCreateNotification;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\On;
 
 class DetailOrder extends Component
@@ -68,13 +71,25 @@ class DetailOrder extends Component
         $this->dispatch('payment-order', ['snapToken' => $snapToken]);
         
     }
-
     public function handlePaymentSuccess($result)
     {
         $this->order->update([
             'status_payment' => $result['transaction_status'],
             'payment_type' => $result['payment_type'],
         ]);
+
+        $dataPayment = [
+            'order_id' => $this->order->id,
+            'product_name' => $this->order->product->title,
+            'customer_name' => $this->order->customer_name,
+            'status_payment' => $this->order->status_payment,
+            'payment_type' => $this->order->payment_type,
+            'total_harga' => $this->order->total_harga,
+            'profile_image' => $this->order->user->profile,
+        ];
+
+        $adminNotif = AdminUser::where('role', 'admin')->get();
+        Notification::send($adminNotif, new OrderCreateNotification('payment_success', $dataPayment, $this->order));
 
         $this->judul = 'Success';
         $this->message = 'Pembayaran berhasil. Order anda akan segera diproses.';

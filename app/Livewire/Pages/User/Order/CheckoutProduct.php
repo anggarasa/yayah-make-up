@@ -2,16 +2,15 @@
 
 namespace App\Livewire\Pages\User\Order;
 
+use App\Models\AdminUser;
 use App\Models\BajuPernikahan;
 use App\Models\Order;
-use App\Models\Payment;
 use App\Models\Product;
-use GuzzleHttp\Client;
+use App\Notifications\OrderCreateNotification;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\On;
-use Midtrans\Snap;
+use Illuminate\Support\Facades\Notification;
 
 class CheckoutProduct extends Component
 {
@@ -73,6 +72,8 @@ class CheckoutProduct extends Component
     
     public function processCheckout()
     {
+        $order = null; // Inisialisasi variabel order
+        
         try {
             $this->validate();
             
@@ -102,12 +103,29 @@ class CheckoutProduct extends Component
                 }
             }
 
+            $dataOrder = [
+                'order_id' => $order->id,
+                'product_name' => $this->product->title,
+                'customer_name' => $this->customer_name,
+                'total_harga' => $this->totalHarga,
+                'profile_image' => auth()->user()->profile ?? null,
+            ];
+
+            $adminUser = AdminUser::where('role', 'admin')->get();
+            Notification::send($adminUser, new OrderCreateNotification('order_created', $dataOrder));
+
             // Hapus session
             session()->forget(['selected_akad_dress', 'selected_reception_dresses']);
 
             return redirect()->route('detail-pesanan', $order);
 
         } catch (\Exception $e) {
+
+            // Jika order berhasil dibuat, hapus order tersebut
+            if ($order) {
+                $order->delete(); // Menghapus order yang berhasil dibuat
+            }
+            
             $this->judul = 'Error!';
             $this->message = $e->getMessage();
             $this->dispatch('checkout-error');
