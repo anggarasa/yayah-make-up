@@ -38,8 +38,6 @@ class CheckoutProduct extends Component
     
     public $resepsiDressIds = [];
 
-    public $snapToken;
-
     public $judul, $message;
     
     public function mount(Product $product)
@@ -134,6 +132,7 @@ class CheckoutProduct extends Component
 
     public function cencelCheckout()
     {
+        
         $this->reset([
             'customer_name',
             'customer_email',
@@ -142,7 +141,6 @@ class CheckoutProduct extends Component
             'tanggal_pernikahan',
             'akadDressId',
             'resepsiDressIds',
-            'paymentType',
             'totalHarga',
         ]);
         $this->redirect(route('detail-product-user', $this->product->id), navigate: true);

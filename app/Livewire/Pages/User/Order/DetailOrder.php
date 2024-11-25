@@ -4,20 +4,17 @@ namespace App\Livewire\Pages\User\Order;
 
 use App\Models\AdminUser;
 use Midtrans\Snap;
-use Midtrans\Config;
 use App\Models\Order;
-use App\Models\Payment;
 use App\Notifications\OrderCreateNotification;
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use Livewire\Attributes\On;
 
 class DetailOrder extends Component
 {
     public Order $order;
     public $showFullDescription = false;
     public $descriptionLimit = 225; // Batasan karakter untuk tampilan awal
+    public $isLoading = false;
 
     public $judul, $message;
 
@@ -71,6 +68,7 @@ class DetailOrder extends Component
         $this->dispatch('payment-order', ['snapToken' => $snapToken]);
         
     }
+    
     public function handlePaymentSuccess($result)
     {
         $this->order->update([
@@ -106,6 +104,29 @@ class DetailOrder extends Component
         $this->judul = 'Error';
         $this->message = 'Pembayaran gagal. Silahkan coba lagi.';
         $this->dispatch('checkout-error');
+    }
+
+    // Cancel order
+    public function cancelOrder()
+    {
+        $this->order->update([
+            'status_payment' => 'refund',
+            'status' => 'dibatalkan'
+        ]);
+
+        $dataPayment = [
+            'order_id' => $this->order->id,
+            'product_name' => $this->order->product->title,
+            'customer_name' => $this->order->customer_name,
+            'status_payment' => $this->order->status_payment,
+            'status' => $this->order->status,
+            'payment_type' => $this->order->payment_type,
+            'total_harga' => $this->order->total_harga,
+            'profile_image' => $this->order->user->profile,
+        ];
+
+        $adminNotif = AdminUser::where('role', 'admin')->get();
+        Notification::send($adminNotif, new OrderCreateNotification('cancel_order', $dataPayment, $this->order));
     }
 
     public function render()

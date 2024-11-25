@@ -72,6 +72,8 @@ class OrderCreateNotification extends Notification
             
             case 'payment_success':
                 return "{$this->data['customer_name']} sudah membayar pesanan";
+            case 'cancel_order':
+                return "{$this->data['customer_name']} telah membatalkan pesanan ID: {$this->data['order_id']}";
             
             default:
                 return "Notifikasi baru";
@@ -105,6 +107,21 @@ class OrderCreateNotification extends Notification
                 'payment_type' => $this->data['payment_type'],
                 'total_harga' => $this->data['total_harga'],
                 'profile_image' => $this->data['profile_image'],
+                'created_at' => now(),
+            ];
+        } elseif ($this->type == 'cancel_order') {
+            return [
+                'message' => $this->data['customer_name']. " telah membatalkan pesanan ID: {$this->data['order_id']}",
+                'type_notification' => 'cancel_order',
+                'order_id' => $this->data['order_id'],
+                'product_name' => $this->data['product_name'],
+                'status_payment' => $this->data['status_payment'],
+                'status' => $this->data['status'],
+                'customer_name' => $this->data['customer_name'],
+                'payment_type' => $this->data['payment_type'],
+                'total_harga' => $this->data['total_harga'],
+                'profile_image' => $this->data['profile_image'],
+                'created_at' => now(),
             ];
         }
 

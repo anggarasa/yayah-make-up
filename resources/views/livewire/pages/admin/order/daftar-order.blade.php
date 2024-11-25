@@ -6,7 +6,7 @@
         <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
             <div class="flex flex-wrap gap-4">
                 @foreach(['all' => 'Semua', 'pembayaran' => 'Pembayaran', 'diproses' => 'Diproses', 'dikirim' =>
-                'Dikirim', 'selesai' => 'Selesai'] as $status => $label)
+                'Dikirim', 'selesai' => 'Selesai', 'dibatalkan' => 'Di Batalkan'] as $status => $label)
                 <button wire:click="$set('selectedStatus', '{{ $status }}')"
                     class="{{ $selectedStatus === $status ? 'bg-ungu-dark text-white' : 'bg-gray-100 text-gray-700' }} px-4 py-2 rounded-md transition-colors">
                     {{ $label }}
@@ -28,7 +28,8 @@
                             $order->status === 'pembayaran' ? 'bg-yellow-100 text-yellow-800' : 
                             ($order->status === 'diproses' ? 'bg-blue-100 text-blue-800' : 
                             ($order->status === 'dikirim' ? 'bg-purple-100 text-purple-800' : 
-                            ($order->status === 'selesai' ? 'bg-green-100 text-green-800' : ''))) 
+                            ($order->status === 'selesai' ? 'bg-green-100 text-green-800' : 
+                            ($order->status === 'dibatalkan' ? 'bg-red-100 text-red-800' : '')))) 
                         }}">
                             {{ ucfirst($filters[$order->status]) }}
                         </span>

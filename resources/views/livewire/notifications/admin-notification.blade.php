@@ -52,6 +52,28 @@
                         </div>
                         <p class="text-xs text-gray-500">{{ $notification->created_at->diffForHumans() }}</p>
                     </div>
+                    @elseif ($notification->data['type_notification'] === 'cancel_order')
+                    <div class="flex-shrink-0">
+                        <img class="w-11 h-11 rounded-full"
+                            src="{{ $notification->data['profile_image'] ?? asset('img/component/avatar.png') }}"
+                            alt="Bonnie Green avatar" />
+                        <div
+                            class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-red-700">
+                            <i class="fa-solid fa-xmark text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-gray-800 font-medium">{{ $notification->data['message'] }}</p>
+                        <p class="text-gray-800 font-medium">Rp {{
+                            number_format($notification->data['total_harga'], 0, ',', '.') }}</p>
+                        <div class="flex items-center space-x-2">
+                            <p class="text-white bg-red-500 px-2 py-1 rounded-full text-xs">{{
+                                $notification->data['status'] }}</p>
+                            <span>-</span>
+                            <p class="text-gray-500 text-sm">{{ $notification->data['payment_type'] }}</p>
+                        </div>
+                        <p class="text-xs text-gray-500">{{ $notification->created_at->diffForHumans() }}</p>
+                    </div>
                     @endif
                 </a>
             </li>

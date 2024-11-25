@@ -87,6 +87,17 @@
                                             <p class="text-sm">Terima kasih telah menggunakan layanan kami.</p>
                                         </div>
                                     </div>
+                                    @elseif($order->status === 'dibatalkan')
+                                    <div class="flex items-center space-x-3 p-4 bg-red-100 text-red-700 rounded-lg">
+                                        <i class="fa-solid fa-xmark text-2xl"></i>
+                                        <div>
+                                            <p class="font-semibold">{{ $order->customer_name }} telah membatalkan
+                                                pesanan</p>
+                                            <p class="text-sm">Anda harus mengembalikan uang yang telah dibayar oleh {{
+                                                $order->customer_name }} sebanyak Rp {{
+                                                number_format($order->total_harga, 0, ',', '.') }}.</p>
+                                        </div>
+                                    </div>
                                     @endif
                                 </div>
                                 @endif

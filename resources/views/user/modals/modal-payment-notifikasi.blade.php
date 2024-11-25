@@ -58,27 +58,29 @@
 
 
 {{-- Modal konfirm batal checkout --}}
-<div x-data="{ open: false }" x-show="open" @modal-confirm-checkout.window="open = true"
-  @close-modal-confirm-checkout.window="open = false" x-transition:enter="transition ease-out duration-300"
+<div x-data="{ open: false }" x-show="open" @modal-confirm-order.window="open = true"
+  @close-modal-confirm-order.window="open = false" x-transition:enter="transition ease-out duration-300"
   x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100"
   x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100"
   x-transition:leave-end="opacity-0 transform scale-90"
   class="fixed inset-0 bg-gray-600 z-50 bg-opacity-50 overflow-y-auto h-full w-full" style="display: none;">
-  <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+  <div class="relative top-20 mx-auto p-5 border w-[500px] shadow-lg rounded-md bg-white">
     <div class="mt-3 text-center">
       <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100">
         <i class="fa-solid fa-exclamation text-blue-600"></i>
       </div>
-      <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">Yakin?</h3>
+      <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">Anda yakin ingin membatalkan pesanan ini?</h3>
       <div class="mt-2 px-7 py-3">
         <p class="text-sm text-gray-500">
-          Apakah anda yakin tidak ingin melanjutkan pesanan?
+          <span class="font-medium text-black">Perhatian:</span> Jika pesanan dibatalkan, dana akan dikembalikan melalui
+          metode pembayaran sebelumnya (kartu
+          kredit, QRIS, GoPay, atau ShopeePay). Untuk metode pembayaran lainnya, mohon hubungi layanan pelanggan.
         </p>
       </div>
       <div class="flex justify-between items-center px-4 py-3 gap-10">
-        <button wire:click="cencelCheckout" @click="open = false"
+        <button wire:click="cancelOrder" @click="open = false"
           class="px-2 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-          Tinggalkan
+          Ya
         </button>
         <button type="button" @click="open = false"
           class="px-2 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">

@@ -206,6 +206,10 @@
                         notificationClass += 'notification-payment-success';
                         iconClass = 'fa-solid fa-circle-check';
                         break;
+                    case 'cancel_order':
+                        notificationClass += 'notification-error';
+                        iconClass = 'fa-solid fa-circle-xmark';
+                        break;
                     default:
                         notificationClass += 'notification-error';
                         iconClass = 'fa-solid fa-circle-exclamation';

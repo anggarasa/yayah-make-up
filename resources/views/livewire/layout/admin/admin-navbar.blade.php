@@ -95,6 +95,16 @@
                           <i class="fa-solid fa-money-bill text-white text-xs"></i>
                         </div>
                       </div>
+                      @elseif ($notification->data['type_notification'] === 'cancel_order')
+                      <div class="flex-shrink-0">
+                        <img class="w-11 h-11 rounded-full"
+                          src="{{ $notification->data['profile_image'] ?? asset('img/component/avatar.png') }}"
+                          alt="Bonnie Green avatar" />
+                        <div
+                          class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-red-700">
+                          <i class="fa-solid fa-xmark text-white text-xs"></i>
+                        </div>
+                      </div>
                       @endif
                       <div>
                         <a href="{{ route('order.show-order', $notification->data['order_id']) }}" wire:navigate
