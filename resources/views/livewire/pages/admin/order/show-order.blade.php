@@ -87,7 +87,7 @@
                                             <p class="text-sm">Terima kasih telah menggunakan layanan kami.</p>
                                         </div>
                                     </div>
-                                    @elseif($order->status === 'dibatalkan')
+                                    @elseif($order->status === 'dibatalkan' && $order->status_payment === 'refund')
                                     <div class="flex items-center space-x-3 p-4 bg-red-100 text-red-700 rounded-lg">
                                         <i class="fa-solid fa-xmark text-2xl"></i>
                                         <div>
@@ -96,6 +96,16 @@
                                             <p class="text-sm">Anda harus mengembalikan uang yang telah dibayar oleh {{
                                                 $order->customer_name }} sebanyak Rp {{
                                                 number_format($order->total_harga, 0, ',', '.') }}.</p>
+                                        </div>
+                                    </div>
+                                    @elseif($order->status === 'dibatalkan' && $order->status_payment === 'cancel')
+                                    <div class="flex items-center space-x-3 p-4 bg-red-100 text-red-700 rounded-lg">
+                                        <i class="fa-solid fa-xmark text-2xl"></i>
+                                        <div>
+                                            <p class="font-semibold">{{ $order->customer_name }} telah membatalkan
+                                                pesanannya.</p>
+                                            <p class="text-sm">Pesanan dengan nomor {{ Str::limit($order->id, 5, '...')
+                                                }} telah dibatalkan oleh pelanggan.</p>
                                         </div>
                                     </div>
                                     @endif

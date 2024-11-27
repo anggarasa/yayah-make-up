@@ -233,6 +233,10 @@
                 <div class="flex space-x-2">
                     @if ($order->status_payment === 'pending' || $order->status_payment == 'deny' ||
                     $order->status_payment == 'failed' || $order->status_payment == 'expire')
+                    <button type="button" @click="$dispatch('modal-confirm-order-canceling')"
+                        class="flex-1 text-center bg-transparent border border-ungu-dark hover:bg-ungu-tipis text-ungu-dark font-semibold py-3 px-6 rounded-lg transition duration-200">
+                        Batalkan
+                    </button>
                     <button wire:click="payment" wire:loading.attr="disabled"
                         class="flex-1 bg-ungu-dark hover:bg-ungu-dark/90 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                         Bayar
@@ -246,7 +250,7 @@
                         class="flex-1 bg-ungu-dark hover:bg-ungu-dark/90 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                         Hubungi Penjual
                     </button>
-                    @elseif ($order->status_payment === 'refund')
+                    @elseif ($order->status_payment === 'refund' || $order->status_payment === 'cancel')
                     <button wire:click="contactSeller"
                         class="flex-1 bg-ungu-dark hover:bg-ungu-dark/90 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                         Hubungi Penjual

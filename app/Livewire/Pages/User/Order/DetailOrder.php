@@ -107,6 +107,28 @@ class DetailOrder extends Component
     }
 
     // Cancel order
+    public function cancelingOrder()
+    {
+        $this->order->update([
+            'status_payment' => 'cancel',
+            'status' => 'dibatalkan'
+        ]);
+
+        $dataPayment = [
+            'order_id' => $this->order->id,
+            'product_name' => $this->order->product->title,
+            'customer_name' => $this->order->customer_name,
+            'status_payment' => $this->order->status_payment,
+            'status' => $this->order->status,
+            'payment_type' => $this->order->payment_type ?? null,
+            'total_harga' => $this->order->total_harga,
+            'profile_image' => $this->order->user->profile,
+        ];
+
+        $adminNotif = AdminUser::where('role', 'admin')->get();
+        Notification::send($adminNotif, new OrderCreateNotification('cancel_order', $dataPayment, $this->order));
+    }
+
     public function cancelOrder()
     {
         $this->order->update([

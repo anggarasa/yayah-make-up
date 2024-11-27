@@ -70,7 +70,13 @@
                             <p class="text-white bg-red-500 px-2 py-1 rounded-full text-xs">{{
                                 $notification->data['status'] }}</p>
                             <span>-</span>
+                            @if ($notification->data && $notification->data['payment_type'] !== null &&
+                            $notification->data['payment_type']->isNotEmpty())
                             <p class="text-gray-500 text-sm">{{ $notification->data['payment_type'] }}</p>
+                            @else
+                            <p class="text-gray-500 text-sm font-medium">Tidak ada data
+                                pembayaran</p>
+                            @endif
                         </div>
                         <p class="text-xs text-gray-500">{{ $notification->created_at->diffForHumans() }}</p>
                     </div>
