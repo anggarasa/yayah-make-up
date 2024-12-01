@@ -94,7 +94,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Inisialisasi Echo di sini
-            window.Echo.channel('notification')
+            window.Echo.channel('notification_admin')
                 .listen('.new-notification', (e) => {
                     @this.refreshNotifications();
                 });

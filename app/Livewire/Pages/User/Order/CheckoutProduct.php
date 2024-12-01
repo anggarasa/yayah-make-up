@@ -110,7 +110,7 @@ class CheckoutProduct extends Component
             ];
 
             $adminUser = AdminUser::where('role', 'admin')->get();
-            Notification::send($adminUser, new OrderCreateNotification('order_created', $dataOrder));
+            Notification::send($adminUser, new OrderCreateNotification('order_created', $dataOrder, 'admin'));
 
             // Hapus session
             session()->forget(['selected_akad_dress', 'selected_reception_dresses']);

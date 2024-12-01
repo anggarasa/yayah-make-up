@@ -87,7 +87,7 @@ class DetailOrder extends Component
         ];
 
         $adminNotif = AdminUser::where('role', 'admin')->get();
-        Notification::send($adminNotif, new OrderCreateNotification('payment_success', $dataPayment, $this->order));
+        Notification::send($adminNotif, new OrderCreateNotification('payment_success', $dataPayment, 'admin'));
 
         $this->judul = 'Success';
         $this->message = 'Pembayaran berhasil. Order anda akan segera diproses.';
@@ -126,7 +126,7 @@ class DetailOrder extends Component
         ];
 
         $adminNotif = AdminUser::where('role', 'admin')->get();
-        Notification::send($adminNotif, new OrderCreateNotification('cancel_order', $dataPayment, $this->order));
+        Notification::send($adminNotif, new OrderCreateNotification('cancel_order', $dataPayment, 'admin'));
     }
 
     public function cancelOrder()
@@ -148,7 +148,7 @@ class DetailOrder extends Component
         ];
 
         $adminNotif = AdminUser::where('role', 'admin')->get();
-        Notification::send($adminNotif, new OrderCreateNotification('cancel_order', $dataPayment, $this->order));
+        Notification::send($adminNotif, new OrderCreateNotification('cancel_order', $dataPayment, 'admin'));
     }
 
     public function render()

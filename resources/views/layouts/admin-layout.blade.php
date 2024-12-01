@@ -185,7 +185,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            window.Echo.channel('pop-up')
+            window.Echo.channel('pop-up_admin')
                 .listen('.new-notification', (data) => {
                 createNotification(data.message, data.type, data.data);
             });
