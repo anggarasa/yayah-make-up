@@ -7,11 +7,43 @@ use App\Models\CategoryProduct;
 new class extends Component
 {
   public $categories;
+  public $notifications;
 
   public function mount()
   {
     $this->categories = CategoryProduct::all();
+
+    $this->loadNotifications();
   }
+
+  public function loadNotifications()
+  {
+      $user = Auth::user();
+      $this->notifications = $user->unreadNotifications()->take(4)->get();
+  }
+
+    public function markAsRead($notificationId)
+    {
+        // Dapatkan pengguna yang terautentikasi
+        $user = Auth::user();
+
+        // Temukan notifikasi berdasarkan ID
+        $notification = $user->notifications()->find($notificationId);
+
+        if ($notification) {
+            // Tandai notifikasi sebagai dibaca
+            $notification->markAsRead();
+        }
+
+        // Segarkan notifikasi
+        $this->loadNotifications();
+    }
+
+    // New method to refresh notifications
+    public function refreshNotifications()
+    {
+        $this->loadNotifications();
+    }
   
     /**
      * Log the current user out of the application.
@@ -47,11 +79,106 @@ new class extends Component
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-4">
         <!-- Notification Bell -->
-        <button class="relative text-white">
-          <i class="fas fa-bell text-xl"></i>
-          <span
-            class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">3</span>
-        </button>
+        <div class="relative" x-data="{ open: false }">
+          <button class="relative text-white" @click="open = !open">
+            <i class="fas fa-bell text-xl"></i>
+            @if ($notifications->count() > 0)
+            <span
+              class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">{{
+              $notifications->count() }}</span>
+            @endif
+          </button>
+
+          <!-- Dropdown Notifications -->
+          <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            class="absolute right-0 mt-3 w-96 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700">
+
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Notifications</h3>
+                @if($notifications->count() > 0)
+                <span
+                  class="px-2.5 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 rounded-full">
+                  {{ $notifications->count() }}
+                </span>
+                @endif
+              </div>
+
+              @if($notifications->count() > 0)
+              <ul class="space-y-3">
+                @foreach ($notifications as $notification)
+                <li class="transform transition-all duration-200 hover:bg-gray-50 p-3 rounded-lg">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                      @if ($notification->data['type_notification'] === 'status_order_diproses')
+                      <div class="flex-shrink-0">
+                        <img class="w-11 h-11 rounded-full"
+                          src="{{ $notification->data['profile_image'] ?? asset('img/component/avatar.png') }}"
+                          alt="Bonnie Green avatar" />
+                        <div
+                          class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-blue-700">
+                          <i class="fas fa-spinner text-white text-xs"></i>
+                        </div>
+                      </div>
+                      @elseif ($notification->data['type_notification'] === 'status_order_dikirim')
+                      <div class="flex-shrink-0">
+                        <img class="w-11 h-11 rounded-full"
+                          src="{{ $notification->data['profile_image'] ?? asset('img/component/avatar.png') }}"
+                          alt="Bonnie Green avatar" />
+                        <div
+                          class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-purple-700">
+                          <i class="fas fa-truck text-white text-xs"></i>
+                        </div>
+                      </div>
+                      @elseif ($notification->data['type_notification'] === 'status_order_selesai')
+                      <div class="flex-shrink-0">
+                        <img class="w-11 h-11 rounded-full"
+                          src="{{ $notification->data['profile_image'] ?? asset('img/component/avatar.png') }}"
+                          alt="Bonnie Green avatar" />
+                        <div
+                          class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-green-700">
+                          <i class="fas fa-check-circle text-white text-xs"></i>
+                        </div>
+                      </div>
+                      @endif
+                      <div>
+                        <a href="{{ route('order.show-order', $notification->data['order_id']) }}" wire:navigate
+                          wire:click="markAsRead('{{ $notification->id }}')"
+                          class="text-sm text-gray-700 hover:underline">
+                          {{ $notification->data['message'] }}
+                        </a> <br>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                          {{ $notification->created_at->diffForHumans() }}
+                        </span>
+                      </div>
+                    </div>
+                    <button wire:click="markAsRead('{{ $notification->id }}')"
+                      class="px-3 py-1 text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-200">
+                      Mark as read
+                    </button>
+                  </div>
+                </li>
+                @endforeach
+              </ul>
+
+              <div class="mt-4">
+                <a href="{{ route('admin-notification') }}" class="text-sm text-blue-600 hover:underline">Lihat
+                  Semua</a>
+              </div>
+              @else
+              <div class="flex flex-col items-center justify-center py-6">
+                <div class="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 mb-3">
+                  <i class="fa-regular fa-bell text-gray-500 dark:text-gray-400 text-xl"></i>
+                </div>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">No new notifications</p>
+              </div>
+              @endif
+            </div>
+          </div>
+        </div>
 
         <!-- Shopping Cart -->
         <button class="relative text-white">
@@ -146,3 +273,14 @@ new class extends Component
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const userId = @json(auth()->id());
+        // Inisialisasi Echo di sini
+        window.Echo.private(`notification_user.${userId}`)
+            .listen('.new-notification', (e) => {
+                @this.refreshNotifications();
+            });
+    });
+</script>
