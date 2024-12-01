@@ -21,7 +21,7 @@ Route::middleware(['auth', 'redirect.if.admin', 'verified'])->group(function () 
     Route::get('/pesanan-saya/{order}', DetailOrder::class)->name('detail-pesanan');
   });
 
-  Route::get('/profile/{name}', EditProfileUser::class)->name('profile-user');
+  Route::get('/profile/{username}', EditProfileUser::class)->name('profile-user');
   Route::get('/pesanan-saya', MyOrder::class)->name('myOrder-user');
   Route::get('/notification-user', UserNotification::class)->name('user-notification');
 });

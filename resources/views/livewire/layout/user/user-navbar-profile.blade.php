@@ -197,7 +197,7 @@ new class extends Component
           </button>
           <div x-show="open" @click.away="open = false"
             class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-            <a href="{{ route('profile-user', auth()->user()->name) }}" wire:navigate
+            <a href="{{ route('profile-user', auth()->user()->username) }}" wire:navigate
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
             <a href="{{ route('myOrder-user') }}" wire:navigate
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pesanan Saya</a>

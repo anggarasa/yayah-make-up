@@ -16,7 +16,7 @@
           <i class="fas fa-chevron-down ml-auto"></i>
         </button>
         <div x-show="profileDropdown" class="pl-8 space-y-2 mt-2">
-          <a href="{{ route('profile-user', auth()->user()->name) }}"
+          <a href="{{ route('profile-user', auth()->user()->username) }}"
             class="block p-2 text-gray-700 hover:bg-ungu-dark hover:text-white rounded">Detail Profile</a>
           <a href="#" class="block p-2 text-gray-700 hover:bg-ungu-dark hover:text-white rounded">Ubah Password</a>
         </div>
