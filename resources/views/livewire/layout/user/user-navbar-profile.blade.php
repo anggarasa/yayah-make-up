@@ -145,7 +145,7 @@ new class extends Component
                       </div>
                       @endif
                       <div>
-                        <a href="{{ route('order.show-order', $notification->data['order_id']) }}" wire:navigate
+                        <a href="{{ route('detail-pesanan', $notification->data['order_id']) }}" wire:navigate
                           wire:click="markAsRead('{{ $notification->id }}')"
                           class="text-sm text-gray-700 hover:underline">
                           {{ $notification->data['message'] }}
@@ -165,7 +165,8 @@ new class extends Component
               </ul>
 
               <div class="mt-4">
-                <a href="{{ route('admin-notification') }}" class="text-sm text-blue-600 hover:underline">Lihat
+                <a href="{{ route('user-notification') }}" wire:navigate
+                  class="text-sm text-blue-600 hover:underline">Lihat
                   Semua</a>
               </div>
               @else

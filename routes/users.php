@@ -7,6 +7,7 @@ use App\Livewire\Pages\User\Order\CheckoutProduct;
 use App\Livewire\Pages\User\Order\DetailOrder;
 use App\Livewire\Pages\User\Order\MyOrder;
 use App\Livewire\Pages\User\Profile\EditProfileUser;
+use App\Livewire\Pages\User\UserNotification;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'redirect.if.admin', 'verified'])->group(function () {
@@ -22,4 +23,5 @@ Route::middleware(['auth', 'redirect.if.admin', 'verified'])->group(function () 
 
   Route::get('/profile/{name}', EditProfileUser::class)->name('profile-user');
   Route::get('/pesanan-saya', MyOrder::class)->name('myOrder-user');
+  Route::get('/notification-user', UserNotification::class)->name('user-notification');
 });

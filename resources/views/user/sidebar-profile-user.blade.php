@@ -26,7 +26,8 @@
         <i class="fas fa-shopping-cart mr-3"></i>
         Pesanan Saya
       </a>
-      <a href="#" class="flex items-center p-2 text-gray-700 hover:bg-ungu-dark hover:text-white rounded">
+      <a href="{{ route('user-notification') }}" wire:navigate
+        class="flex items-center p-2 text-gray-700 hover:bg-ungu-dark hover:text-white rounded">
         <i class="fas fa-bell mr-3"></i>
         Notifikasi
       </a>
