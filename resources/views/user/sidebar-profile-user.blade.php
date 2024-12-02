@@ -2,7 +2,12 @@
 <div class="bg-white w-full md:w-64 shadow-lg md:min-h-screen" x-data="{ profileDropdown: false }">
   <div class="p-4">
     <div class="text-center">
-      <img src="/img/logo/logo-aplikasi-ym.svg" alt="Profile" class="rounded-full w-28 mx-auto mb-4">
+      @if (auth()->user()->profile)
+      <img src="{{ asset('storage/uploads/profile/'. auth()->user()->profile) }}" alt="Profile"
+        class="rounded-full w-28 mx-auto mb-4">
+      @else
+      <img src="/img/component/avatar.png" alt="Profile" class="rounded-full w-28 mx-auto mb-4">
+      @endif
       <h2 class="text-xl font-semibold">{{ auth()->user()->name }}</h2>
       <p class="text-gray-600">{{ auth()->user()->phone_number }}</p>
     </div>

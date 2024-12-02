@@ -31,5 +31,15 @@ class DatabaseSeeder extends Seeder
             'age' => '2006-06-11',
             'password' => bcrypt('anggara-sa'),
         ]);
+        
+        User::factory()->create([
+            'name' => 'Ridawan Saputra',
+            'username' => 'Ridwab', 
+            'gender' => 'laki-laki',
+            'email' => 'anggasaputra6259@gmail.com',
+            'phone_number' => '081224242608',
+            'age' => '2006-05-11',
+            'password' => bcrypt('anggara-sa'),
+        ]);
     }
 }
