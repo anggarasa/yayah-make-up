@@ -58,6 +58,14 @@
             overflow: hidden;
         }
 
+        @media (max-width: 640px) {
+            .modal-content {
+                margin: 0.5rem;
+                max-height: calc(100vh - 2rem);
+                overflow-y: auto;
+            }
+        }
+
         #notification-container {
             position: fixed;
             top: 20px;

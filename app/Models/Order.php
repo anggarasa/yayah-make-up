@@ -40,6 +40,11 @@ class Order extends Model
     {
         return $this->belongsTo(BajuPernikahan::class);
     }
+
+    public function diskon()
+    {
+        return $this->belongsTo(Diskon::class);
+    }
     // Belongs to end
 
     // Has many Start
