@@ -1,16 +1,19 @@
 <?php
 
-use App\Livewire\Pages\Admin\Category\Product\CategoryProduct;
-use App\Livewire\Pages\Admin\Crud\Baju\CrudBajuPernikahan;
+use Illuminate\Support\Facades\Route;
+use App\Livewire\Pages\Admin\Order\ShowOrder;
+use App\Livewire\Pages\Admin\Order\DaftarOrder;
+use App\Livewire\Notifications\AdminNotification;
+use App\Livewire\Pages\Admin\Product\Paket\ListProduct;
+use App\Livewire\Pages\Admin\Product\Paket\ShowProduct;
 use App\Livewire\Pages\Admin\Product\Baju\BajuPernikahan;
 use App\Livewire\Pages\Admin\Product\Paket\CreateProduct;
 use App\Livewire\Pages\Admin\Product\Paket\DeleteProduct;
-use App\Livewire\Pages\Admin\Product\Paket\ListProduct;
-use App\Livewire\Pages\Admin\Product\Paket\ShowProduct;
 use App\Livewire\Pages\Admin\Product\Paket\UpdateProduct;
+use App\Livewire\Pages\Admin\Crud\Baju\CrudBajuPernikahan;
 use App\Livewire\Pages\Admin\Question\ListQuestionWelcome;
 use App\Livewire\Pages\Admin\Question\ShowQuestionWelcome;
-use Illuminate\Support\Facades\Route;
+use App\Livewire\Pages\Admin\Category\Product\CategoryProduct;
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
   Route::get('/dashboard', function () {
@@ -38,4 +41,12 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/list-question', ListQuestionWelcome::class)->name('list-question');
     Route::get('/show-question/{question}', ShowQuestionWelcome::class)->name('show-question');
   });
+
+  Route::prefix('order')->name('order.')->group(function() {
+    Route::get('/daftar-order', DaftarOrder::class)->name('daftar-order');
+    Route::get('/show-order/{order}', ShowOrder::class)->name('show-order');
+  });
+
+  Route::get('/notification', AdminNotification::class)->name('admin-notification');
+  
 });

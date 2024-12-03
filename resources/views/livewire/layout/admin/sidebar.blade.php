@@ -1,6 +1,6 @@
 <div>
     <aside
-        class="fixed top-0 left-0 z-40 w-72 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        class="fixed top-0 left-0 z-30 w-72 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidenav" id="drawer-navigation">
         <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
             <ul class="space-y-2">
@@ -79,6 +79,19 @@
                     </a>
                 </li>
                 <li>
+                    <x-sidebar-link href="{{ route('order.daftar-order') }}" wire:navigate
+                        :active="request()->is('admin/order/daftar-order')">
+                        <i class="fa-solid fa-cart-shopping flex-shrink-0 text-2xl transition duration-75"></i>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Daftar Pesanan</span>
+                        @if ($unreadCount > 0)
+                        <span
+                            class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-white bg-ungu-white">
+                            {{ $unreadCount }}
+                        </span>
+                        @endif
+                    </x-sidebar-link>
+                </li>
+                <li>
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-authentication" data-collapse-toggle="dropdown-authentication">
@@ -131,17 +144,18 @@
                     </x-sidebar-link>
                 </li>
                 <li>
-                    <a href="#"
-                        class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
-                        <svg aria-hidden="true"
-                            class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z">
-                            </path>
-                        </svg>
-                        <span class="ml-3">Components</span>
-                    </a>
+                    <x-sidebar-link href="{{ route('admin-notification') }}" wire:navigate wire:click="markAllAsRead"
+                        :active="request()->is('admin/notification')">
+                        <i class="fa-regular fa-bell flex-shrink-0 text-2xl transition
+                        duration-75"></i>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Notification</span>
+                        @if ($notification->count() > 0)
+                        <span
+                            class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-white bg-ungu-white">
+                            {{ $notification->count() }}
+                        </span>
+                        @endif
+                    </x-sidebar-link>
                 </li>
                 <li>
                     <a href="#"
@@ -309,4 +323,14 @@
     </aside>
 
     @include('welcome.modals.modal-contact-welcome-notifikasi')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        // Inisialisasi Echo di sini
+        window.Echo.channel('notification')
+            .listen('.new-notification', (e) => {
+                @this.refreshNotifications();
+            });
+    });
+    </script>
 </div>

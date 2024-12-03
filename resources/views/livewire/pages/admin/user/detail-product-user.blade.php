@@ -1,5 +1,5 @@
 <div>
-    <div class="container mx-auto pb-4 pt-28 px-4">
+    <div class="container mx-auto p-4">
         <!-- Heading & Filters -->
         <div class="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
             <div>
@@ -46,7 +46,7 @@
                     @if(count($mediaProducts) > 0)
                     <div class="relative">
                         @if($mediaProducts[$currentIndex]->media_type == 'Video')
-                        <video class="w-full h-96 rounded-lg shadow-md" controls autoplay>
+                        <video class="w-full h-96 rounded-lg shadow-md" controls>
                             <source src="{{ asset('storage/' . $mediaProducts[$currentIndex]->file_path) }}"
                                 type="video/mp4">
                             Your browser does not support the video tag.
@@ -193,51 +193,43 @@
                     </div>
 
                     <!-- Pilihan Baju Pernikahan -->
+                    @if($hasDresses)
                     <div>
-                        @if ($product->dresses->isNotEmpty())
-                        <h3 class="text-lg font-bold text-black mb-2">Pilih baju pernikahan anda :</h3>
+                        @if($product->dresses()->where('dress_type', 'Akad')->exists())
+                        <div class="mb-8">
+                            <h2 class="text-xl font-semibold mb-4">Pilih Baju Akad</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                @foreach($product->dresses()->where('dress_type', 'Akad')->get() as $dress)
+                                <div class="border rounded-lg p-4 cursor-pointer"
+                                    :class="{ 'border-ungu-dark bg-purple-50': {{ $selectedAkadDress }} === {{ $dress->id }} }"
+                                    wire:click="selectAkadDress({{ $dress->id }})">
+                                    <img src="{{ asset('storage/file-dress/'. $dress->image_dress) }}"
+                                        alt="{{ $dress->name }}" class="w-full h-48 object-cover mb-2">
+                                    <h3 class="font-semibold text-center">{{ $dress->name }}</h3>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
                         @endif
 
-                        <div class="ml-5 mb-4">
-                            @if ($product->dresses->where('dress_type', 'Akad')->isNotEmpty())
-                            <h3 class="text-sm font-semibold text-gray-700 mb-2">Baju Akad :</h3>
-
-                            <div class="flex space-x-2">
-                                @foreach ($product->dresses->where('dress_type', 'Akad') as $akad)
-                                <label
-                                    class="flex items-center border-2 border-gray-300 rounded p-2 cursor-pointer has-[:checked]:border-ungu-dark">
-                                    <input type="checkbox" class="hidden peer" />
-                                    <img alt="White T-shirt" class="w-8 h-8 object-cover"
-                                        src="{{ asset('storage/file-dress/'. $akad->image_dress) }}" width="30" />
-                                    <span
-                                        class="ml-2 text-gray-700 peer-checked:text-ungu-dark peer-checked:font-semibold">{{
-                                        $akad->name }}</span>
-                                </label>
+                        @if($product->dresses()->where('dress_type', 'Resepsi')->exists())
+                        <div class="mb-8">
+                            <h2 class="text-xl font-semibold mb-4">Pilih Baju Resepsi (Pilih 2)</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                @foreach($product->dresses()->where('dress_type', 'Resepsi')->get() as $dress)
+                                <div class="border rounded-lg p-4 cursor-pointer"
+                                    :class="{ 'border-ungu-dark bg-purple-50': @js(in_array($dress->id, $selectedReceptionDresses)) }"
+                                    wire:click="toggleReceptionDress({{ $dress->id }})">
+                                    <img src="{{ asset('storage/file-dress/'. $dress->image_dress) }}"
+                                        alt="{{ $dress->name }}" class="w-full h-48 object-cover mb-2">
+                                    <h3 class="font-semibold text-center">{{ $dress->name }}</h3>
+                                </div>
                                 @endforeach
                             </div>
-                            @endif
                         </div>
-
-                        <div class="ml-5 mb-4">
-                            @if ($product->dresses->where('dress_type', 'Resepsi')->isNotEmpty())
-                            <h3 class="text-sm font-semibold text-gray-700 mb-2">Baju Resepsi</h3>
-
-                            <div class="flex space-x-2">
-                                @foreach ($product->dresses->where('dress_type', 'Resepsi') as $resepsi)
-                                <label
-                                    class="flex items-center border-2 border-gray-300 rounded p-2 cursor-pointer has-[:checked]:border-ungu-dark">
-                                    <input type="checkbox" class="hidden peer" />
-                                    <img alt="White T-shirt" class="w-8 h-8 object-cover"
-                                        src="{{ asset('storage/file-dress/'. $resepsi->image_dress) }}" width="30" />
-                                    <span
-                                        class="ml-2 text-gray-700 peer-checked:text-ungu-dark peer-checked:font-semibold">{{
-                                        $resepsi->name }}</span>
-                                </label>
-                                @endforeach
-                            </div>
-                            @endif
-                        </div>
+                        @endif
                     </div>
+                    @endif
 
                     <!-- Tombol Beli -->
                     <div class="flex justify-between items-center space-x-4">
@@ -245,8 +237,8 @@
                             class="w-full bg-transparent text-ungu-dark py-2 px-4 rounded-md hover:bg-gray-100 border border-ungu-dark focus:outline-none focus:ring-2 focus:ring-ungu-white focus:ring-offset-2 cursor-not-allowed">
                             Tambahkan ke Keranjang
                         </button>
-                        <button type="button"
-                            class="w-full bg-ungu-dark text-white py-2 px-4 rounded-md hover:bg-ungu-white focus:outline-none focus:ring-2 focus:ring-ungu-dark focus:ring-offset-2 cursor-not-allowed">
+                        <button type="submit" wire:click="checkout"
+                            class="w-full bg-ungu-dark text-white py-2 px-4 rounded-md hover:bg-ungu-white focus:outline-none focus:ring-2 focus:ring-ungu-dark focus:ring-offset-2">
                             Sewa Sekarang
                         </button>
                     </div>
@@ -370,4 +362,8 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal Notifikasi checkout --}}
+    @include('user.modals.modal-checkout-notifikasi')
+    {{-- Modal Notifikasi checkout --}}
 </div>

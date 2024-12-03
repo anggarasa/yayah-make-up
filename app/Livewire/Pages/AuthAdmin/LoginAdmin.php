@@ -42,7 +42,7 @@ class LoginAdmin extends Component
         RateLimiter::clear($this->throttleKey());
 
         // Redirect ke halaman admin setelah login berhasil
-        $this->redirectIntended(default:route('dashboard-admin', absolute:false), navigate:true);
+        return redirect()->route('dashboard-admin');
     }
 
     // Mendefinisikan throttle key berdasarkan email atau alamat IP

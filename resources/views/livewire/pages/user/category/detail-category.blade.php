@@ -1,6 +1,6 @@
 <div>
     {{-- Product list Start --}}
-    <div class="mx-auto max-w-screen-xl pt-28 px-4 2xl:px-0">
+    <div class="mx-auto max-w-screen-xl p-4 2xl:px-0">
         <div class="bg-white border-b-4 pt-5 mb-5 border-ungu-dark">
             <h2 class="text-center text-xl font-bold text-ungu-dark mb-4">
                 KATEGORI {{ $category->name }}

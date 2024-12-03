@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminUser extends Authenticatable
 {
-    use Notifiable, SoftDeletes, HasFactory;
+    use Notifiable, SoftDeletes, HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
