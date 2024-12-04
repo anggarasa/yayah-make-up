@@ -123,7 +123,7 @@
                                                 @if ($diskon->type == 'fixed')
                                                 Rp {{ number_format($diskon->harga_diskon, 0, ',', '.') }}
                                                 @else
-                                                {{ $diskon->harga_diskon }}%
+                                                {{ number_format($diskon->harga_diskon, 0, ',', '.') }}%
                                                 @endif
                                             </span>
                                         </div>
@@ -143,14 +143,14 @@
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-3">
                                             <span class="text-sm text-gray-500 dark:text-neutral-500">
-                                                {{ $diskon->start_date }}
+                                                {{ \Carbon\Carbon::parse($diskon->start_date)->format('F j, Y') }}
                                             </span>
                                         </div>
                                     </td>
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-3">
                                             <span class="text-sm text-gray-500 dark:text-neutral-500">
-                                                {{ $diskon->end_date }}
+                                                {{ \Carbon\Carbon::parse($diskon->end_date)->format('F j, Y') }}
                                             </span>
                                         </div>
                                     </td>
@@ -169,11 +169,15 @@
                                         </div>
                                     </td>
                                     <td class="size-px whitespace-nowrap">
-                                        <div class="px-6 py-1.5">
-                                            <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                                                href="#">
+                                        <div class="px-6 py-1.5 space-x-4">
+                                            <button type="button" wire:click="editDiskon({{ $diskon->id }})"
+                                                class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium">
                                                 Edit
-                                            </a>
+                                            </button>
+                                            <button type="button" wire:click="deleteDiskon({{ $diskon->id }})"
+                                                class="inline-flex items-center gap-x-1 text-sm text-red-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium">
+                                                Delete
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>

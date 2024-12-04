@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('product_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('diskon_id')->nullable()->constrained('diskons')->nullOnDelete();
+            $table->foreignId('diskon_id')->nullable()->constrained('diskons')->nullOnDelete();
             $table->foreignId('akad_dress_id')->nullable()->constrained('baju_pernikahans')->nullOnDelete();
             $table->string('customer_name');
             $table->string('customer_email');

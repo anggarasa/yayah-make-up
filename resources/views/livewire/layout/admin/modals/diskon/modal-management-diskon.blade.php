@@ -30,9 +30,10 @@
                         <div class="flex flex-col sm:flex-row sm:items-start">
                             <div class="mt-3 w-full">
                                 <h3 class="text-xl font-semibold leading-6 text-gray-900 mb-4 text-center sm:text-left">
-                                    Add Discount</h3>
+                                    {{ $is_edit == true ? 'Edit' : 'Add' }} Discount</h3>
 
-                                <form wire:submit="createDiskon" class="space-y-4">
+                                <form wire:submit="{{ $is_edit == true ? 'updateDiskon' : 'createDiskon' }}"
+                                    class="space-y-4">
                                     <!-- Discount Code -->
                                     <div class="w-full">
                                         <label class="block text-sm font-medium text-gray-700">Discount
@@ -85,31 +86,51 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" @click="open = false"
+                                    <button type="button" wire:click="resetInput"
                                         class="w-full sm:w-auto inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                                         Cancel
                                     </button>
                                     <button type="submit"
                                         class="w-full sm:w-auto inline-flex justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
-                                        Add
+                                        {{ $is_edit == true ? 'Update' : 'Add' }}
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Modal Footer -->
-                    {{-- <div
-                        class="bg-gray-50 px-4 py-3 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:px-6">
-                        <button type="button" @click="open = false"
-                            class="w-full sm:w-auto inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            Cancel
-                        </button>
-                        <button type="submit" wire:click="createDiskon"
-                            class="w-full sm:w-auto inline-flex justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
-                            Add
-                        </button>
-                    </div> --}}
+    <!-- Modal confirmasi delete diskon -->
+    <div x-data="{ open: false }" x-show="open" @modal-confirmasi-diskon.window="open = true"
+        @close-modal-confirmasi-diskon.window="open = false" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+        class="fixed inset-0 bg-gray-600 z-50 bg-opacity-50 overflow-y-auto h-full w-full" style="display: none;">
+        <div class="relative top-20 mx-auto p-5 border w-[500px] shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100">
+                    <i class="fa-solid fa-exclamation text-blue-600"></i>
+                </div>
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">Peringatan: Anda akan menghapus diskon
+                    {{ $code }}.</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">
+                        Aksi ini tidak dapat diulang. Apakah Anda tetap ingin menghapus diskon?
+                    </p>
+                </div>
+                <div class="flex justify-between items-center px-4 py-3 gap-10">
+                    <button type="button" wire:click="deleteDiskon"
+                        class="px-2 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                        Ya, Hapus
+                    </button>
+                    <button type="button" wire:click="resetInput"
+                        class="px-2 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        Batal
+                    </button>
                 </div>
             </div>
         </div>

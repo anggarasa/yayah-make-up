@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('diskons', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('code')->unique(); // kode diskon
             $table->decimal('harga_diskon', 15, 2); // Jumlah diskon
             $table->enum('type', ['fixed', 'percentage']); // Tipe diskon (tetap atau persentase)
