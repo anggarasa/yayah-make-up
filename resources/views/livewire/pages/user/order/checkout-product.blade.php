@@ -59,6 +59,32 @@
                             @endif
                         </div>
 
+                        {{-- Code Diskon Produk chek --}}
+                        <form wire:submit="checkKodeDiskon" class="max-w-md mt-4">
+                            <label for="diskon_code"
+                                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Code
+                                Diskon</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <i class="fa-solid fa-percent text-base text-gray-500"></i>
+                                </div>
+                                <input type="text" id="diskon_code" wire:model="diskon_code"
+                                    class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-ungu-dark focus:border-ungu-dark"
+                                    placeholder="Code Diskon" />
+                                <button type="submit"
+                                    class="text-white absolute end-2.5 bottom-1.5 bg-ungu-dark hover:bg-ungu-white focus:ring-4 focus:outline-none focus:ring-ungu-tipis font-medium rounded-lg text-sm px-3 py-1">Check</button>
+                            </div>
+                            @if (session()->has('diskon_success'))
+                            <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{
+                                session('diskon_success') }}</p>
+                            @endif
+                            @if (session()->has('diskon_error'))
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                                session('diskon_error') }}</p>
+                            @endif
+                        </form>
+
+
                         <!-- Payment Type -->
                         <div class="bg-gray-50 rounded-lg p-4">
                             <div class="space-y-4">

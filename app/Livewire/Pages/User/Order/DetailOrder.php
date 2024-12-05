@@ -55,7 +55,7 @@ class DetailOrder extends Component
             'item_details' => [
                 [
                     'id' => $this->order->product->id,
-                    'price' => $this->order->product->harga,
+                    'price' => $this->order->total_harga,
                     'quantity' => 1,
                     'name' => $this->order->product->title,
                     'category' => $this->order->product->categoryProduct->name

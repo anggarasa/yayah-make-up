@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\User\Order;
 
 use App\Models\AdminUser;
 use App\Models\BajuPernikahan;
+use App\Models\Diskon;
 use App\Models\Order;
 use App\Models\Product;
 use App\Notifications\OrderCreateNotification;
@@ -33,6 +34,11 @@ class CheckoutProduct extends Component
 
     #[Validate('required')]
     public $totalHarga;
+
+    #[Validate('nullable|string|max:255')]
+    public $diskon_code;
+
+    public $originalHarga;
 
     public $akadDressId;
     
@@ -66,6 +72,43 @@ class CheckoutProduct extends Component
         $this->customer_phone = $user->phone_number;
         $this->customer_address = $user->alamat;
         $this->totalHarga = $product->harga;
+        $this->originalHarga = $product->harga;
+    }
+
+    // Check Kode diskon
+    public function checkKodeDiskon()
+    {
+        // Kembalikan harga ke harga asli sebelum menerapkan diskon baru
+        $this->totalHarga = $this->originalHarga;
+
+        $diskon = null;
+        if ($this->diskon_code) {
+            $diskon = Diskon::where('code', $this->diskon_code)
+                        ->where('is_active', true)
+                        ->where('start_date', '<=', now())
+                        ->where('end_date', '>=', now())
+                        ->first();
+        }
+
+        if ($diskon) {
+            if ($diskon->type == 'percentage') {
+                $this->totalHarga -= $this->totalHarga * ($diskon->harga_diskon / 100);
+            } elseif ($diskon->type == 'fixed') {
+                $this->totalHarga -= $diskon->harga_diskon;
+            }
+
+            // Pastikan harga tidak negatif
+            $this->totalHarga = max(1, $this->totalHarga);
+
+            // Bisa tambahkan flash message untuk konfirmasi diskon berhasil
+            session()->flash('diskon_success', 'Kode diskon berhasil diterapkan!');
+        } else {
+            // Jika kode diskon tidak valid
+            session()->flash('diskon_error', 'Kode diskon tidak valid.');
+            
+            // Kembalikan ke harga asli
+            $this->totalHarga = $this->originalHarga;
+        }
     }
     
     public function processCheckout()
@@ -74,6 +117,11 @@ class CheckoutProduct extends Component
         
         try {
             $this->validate();
+
+            // cek jika totalHarga 0
+            if ($this->totalHarga == 0) {
+                $this->totalHarga = 1;
+            }
             
             $orderData = [
                 'user_id' => auth()->id(),
