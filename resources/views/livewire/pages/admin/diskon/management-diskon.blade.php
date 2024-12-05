@@ -1,4 +1,33 @@
 <div>
+    <div class=" max-w-3xl my-10 lg:mb-6">
+
+        <h2 class="text-ungu-dark font-semibold font-poppins text-2xl md:text-4xl md:leading-tight">Diskon List
+        </h2>
+
+        <ol class="flex mt-5 items-center whitespace-nowrap">
+            <li class="inline-flex items-center">
+                <a class="flex items-center text-sm text-ungu-dark hover:text-ungu-white focus:outline-none focus:text-ungu-dark"
+                    href="{{ route('dashboard-admin') }}" wire:navigate>
+                    Dashboard
+                </a>
+                <i class="fa-solid fa-angle-right shrink-0 mx-2 size-4 text-gray-400"></i>
+            </li>
+            <li class="inline-flex items-center">
+                <p class="flex items-center text-sm text-gray-500 cursor-pointer">
+                    Diskon & Promo
+                </p>
+                <i class="fa-solid fa-angle-right shrink-0 mx-2 size-4 text-gray-400"></i>
+            </li>
+            <li class="inline-flex items-center">
+                <p class="flex items-center text-sm text-gray-500 cursor-pointer">
+                    Diskon
+                </p>
+            </li>
+        </ol>
+    </div>
+
+
+
     <!-- Table Section -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Card -->
@@ -29,16 +58,7 @@
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                             <thead class="bg-gray-50 dark:bg-neutral-800">
                                 <tr>
-                                    <th scope="col" class="ps-6 py-3 text-start">
-                                        <label for="hs-at-with-checkboxes-main" class="flex">
-                                            <input type="checkbox"
-                                                class="shrink-0 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                id="hs-at-with-checkboxes-main">
-                                            <span class="sr-only">Checkbox</span>
-                                        </label>
-                                    </th>
-
-                                    <th scope="col" class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
+                                    <th scope="col" class="px-6 py-3 text-start">
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-neutral-200">
@@ -100,17 +120,7 @@
                                 @foreach ($diskons as $diskon)
                                 <tr>
                                     <td class="size-px whitespace-nowrap">
-                                        <div class="ps-6 py-3">
-                                            <label for="hs-at-with-checkboxes-1" class="flex">
-                                                <input type="checkbox"
-                                                    class="shrink-0 border-gray-300 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-600 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                                                    id="hs-at-with-checkboxes-1">
-                                                <span class="sr-only">Checkbox</span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td class="size-px whitespace-nowrap">
-                                        <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                                        <div class="px-6 py-3">
                                             <span
                                                 class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{
                                                 $diskon->code }}</span>
