@@ -156,8 +156,8 @@
                                     </td>
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-3">
-                                            <span
-                                                class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
+                                            <span data-dropdown-toggle="update-status-diskon_{{ $diskon->id }}"
+                                                class="py-1 px-1.5 inline-flex cursor-pointer items-center gap-x-1 text-xs font-medium {{ $diskon->is_active == true ? 'bg-teal-100 text-teal-800' : 'bg-red-100 text-red-800' }} rounded-full hover:underline">
                                                 @if ($diskon->is_active == true)
                                                 <i class="fa-solid fa-circle-check text-[10px]"></i>
                                                 Active
@@ -166,6 +166,23 @@
                                                 Tidak Active
                                                 @endif
                                             </span>
+                                        </div>
+                                        <!-- Dropdown menu -->
+                                        <div id="update-status-diskon_{{ $diskon->id }}"
+                                            class="z-10 hidden bg-gray-200 divide-y divide-gray-100 rounded-lg shadow w-44">
+                                            <ul class="py-2 text-sm text-gray-900"
+                                                aria-labelledby="dropdownDefaultButton">
+                                                <li>
+                                                    <a href="#" wire:click="updateStatusDiskon({{ $diskon->id }}, true)"
+                                                        class="block px-4 py-2 hover:bg-gray-300">Active</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"
+                                                        wire:click="updateStatusDiskon({{ $diskon->id }}, false)"
+                                                        class="block px-4 py-2 hover:bg-gray-300">Tidak
+                                                        Active</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </td>
                                     <td class="size-px whitespace-nowrap">

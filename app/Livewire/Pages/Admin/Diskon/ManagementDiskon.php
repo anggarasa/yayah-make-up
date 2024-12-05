@@ -21,6 +21,14 @@ class ManagementDiskon extends Component
     {
         $this->dispatch('hapusDiskon', $diskonId)->to(ModalManagementDiskon::class);
     }
+
+    // Update status diskon
+    public function updateStatusDiskon($diskonId, $status)
+    {
+        $diskon = Diskon::find($diskonId);
+        $diskon->update(['is_active' => $status]);
+    }
+    
     public function render()
     {
         return view('livewire.pages.admin.diskon.management-diskon', [
