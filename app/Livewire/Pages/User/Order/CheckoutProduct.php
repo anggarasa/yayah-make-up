@@ -38,6 +38,8 @@ class CheckoutProduct extends Component
     #[Validate('nullable|string|max:255')]
     public $diskon_code;
 
+    public $diskonId;
+
     public $originalHarga;
 
     public $akadDressId;
@@ -99,6 +101,7 @@ class CheckoutProduct extends Component
 
             // Pastikan harga tidak negatif
             $this->totalHarga = max(1, $this->totalHarga);
+            $this->diskonId = $diskon->id;
 
             // Bisa tambahkan flash message untuk konfirmasi diskon berhasil
             session()->flash('diskon_success', 'Kode diskon berhasil diterapkan!');
@@ -126,6 +129,7 @@ class CheckoutProduct extends Component
             $orderData = [
                 'user_id' => auth()->id(),
                 'product_id' => $this->product->id,
+                 'diskon_id' => $this->diskonId,
                 'customer_name' => $this->customer_name,
                 'customer_phone' => $this->customer_phone,
                 'customer_email' => $this->customer_email,
