@@ -15,6 +15,7 @@ class Product extends Model
         'title',
         'cover_image',
         'harga',
+        'harga_diskon',
         'description'
     ];
 
@@ -41,6 +42,11 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_product')->withTimestamps();
+    }
+
+    public function diskonProducts()
+    {
+        return $this->belongsToMany(DiskonProduct::class, 'diskons_products')->withTimestamps();
     }
     // Many to many End
 

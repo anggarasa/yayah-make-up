@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('cover_image');
             $table->decimal('harga', 15, 2);
+            $table->decimal('harga_diskon', 15, 2)->nullable();
             $table->text('description');
             $table->timestamps();
         });

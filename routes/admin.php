@@ -14,6 +14,7 @@ use App\Livewire\Pages\Admin\Crud\Baju\CrudBajuPernikahan;
 use App\Livewire\Pages\Admin\Question\ListQuestionWelcome;
 use App\Livewire\Pages\Admin\Question\ShowQuestionWelcome;
 use App\Livewire\Pages\Admin\Category\Product\CategoryProduct;
+use App\Livewire\Pages\Admin\Diskon\DiskonProduct;
 use App\Livewire\Pages\Admin\Diskon\ManagementDiskon;
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
@@ -50,6 +51,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
 
   Route::prefix('diskon&promo')->name('diskon-promo.')->group(function() {
     Route::get('/management-diskon', ManagementDiskon::class)->name('management-diskon');
+    Route::get('/management-diskon-product', DiskonProduct::class)->name('management-diskon-product');
   });
 
   Route::get('/notification', AdminNotification::class)->name('admin-notification');

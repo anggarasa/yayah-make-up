@@ -95,14 +95,19 @@
                     <x-sidebar-button-link>
                         <x-slot name="trigger">
                             <i class="fa-solid fa-percent transition duration-75"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Diskon & Promi</span>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Diskon & Promo</span>
                             <i class="fa-solid fa-angle-down transition-transform duration-200"
                                 :class="{'rotate-180': open}"></i>
                         </x-slot>
 
                         <x-slot name="content">
                             <x-sidebar-dropdown-link href="{{ route('diskon-promo.management-diskon') }}" wire:navigate>
-                                Diskon
+                                Diskon Code
+                            </x-sidebar-dropdown-link>
+
+                            <x-sidebar-dropdown-link href="{{ route('diskon-promo.management-diskon-product') }}"
+                                wire:navigate>
+                                Diskon Product
                             </x-sidebar-dropdown-link>
 
                             <x-sidebar-dropdown-link href="{{ route('baju-pernikahan') }}" wire:navigate>Promo

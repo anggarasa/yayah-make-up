@@ -48,6 +48,25 @@
             }
         }
 
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient 15s ease infinite;
+        }
+
         .animate-spin {
             animation: spin 1s linear infinite;
         }
@@ -172,6 +191,59 @@
         <main class="pt-20 lg:pt-32">
             {{ $slot }}
         </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white mt-12">
+            <div class="container mx-auto px-4 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">ShopKu</h3>
+                        <p class="text-gray-400">Tempat belanja online terpercaya dengan jutaan produk dan promo menarik
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Layanan</h3>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white">Cara Belanja</a></li>
+                            <li><a href="#" class="hover:text-white">Pembayaran</a></li>
+                            <li><a href="#" class="hover:text-white">Pengiriman</a></li>
+                            <li><a href="#" class="hover:text-white">Pengembalian</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Tentang Kami</h3>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white">Tentang ShopKu</a></li>
+                            <li><a href="#" class="hover:text-white">Karir</a></li>
+                            <li><a href="#" class="hover:text-white">Blog</a></li>
+                            <li><a href="#" class="hover:text-white">Kebijakan Privasi</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Ikuti Kami</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700">
+                <div class="container mx-auto px-4 py-6">
+                    <p class="text-center text-gray-400">&copy; 2024 ShopKu. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
     @livewireScripts
