@@ -246,7 +246,7 @@
                                     </td>
                                     <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-1.5 space-x-4">
-                                            <button type="button" wire:click="editDiskon()"
+                                            <button type="button" wire:click="editDiskonProduct({{ $diskon->id }})"
                                                 class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium">
                                                 Edit
                                             </button>

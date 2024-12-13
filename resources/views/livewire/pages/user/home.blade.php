@@ -24,7 +24,8 @@
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             <!-- Product Card -->
             @foreach ($products as $product)
-            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
+            <a href="{{ route('detail-product-user', $product->id) }}" wire:navigate
+                class="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden">
                 <!-- Menambahkan w-64 untuk mengatur lebar tetap -->
                 <div class="relative">
                     <img src="{{ asset('storage/'. $product->cover_image) }}"
@@ -34,12 +35,22 @@
                     </div>
                 </div>
                 <div class="p-4">
-                    <h3 class="font-semibold mb-2 truncate">{{ $product->title }}</h3>
+                    <h3 class="font-semibold mb-2 truncate">{{
+                        $product->title }}</h3>
                     <div class="flex flex-col mb-2">
-                        <!-- Mengubah flex direction menjadi column dan memperbesar margin bottom -->
-                        <span class="text-ungu-dark font-bold text-lg mb-1">{{ $product->formatted_harga }}</span>
-                        <!-- Menambahkan margin bottom -->
-                        <span class="text-gray-400 line-through text-sm">Rp 11.999.000</span>
+                        @if (!empty($product->harga_diskon))
+                        <h3 class="text-ungu-dark font-bold text-lg mb-1">
+                            {{ number_format($product->harga_diskon, 0, ',', '.') }}
+                        </h3>
+                        @else
+                        <h3 class="text-ungu-dark font-bold text-lg mb-1">
+                            {{ $product->formatted_harga }}
+                        </h3>
+                        @endif
+
+                        @if (!empty($product->harga_diskon))
+                        <span class="text-gray-400 line-through text-sm">{{ $product->formatted_harga }}</span>
+                        @endif
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-1 text-yellow-400">
@@ -49,7 +60,7 @@
                         <span class="text-gray-600 text-sm">Terjual 1.2rb</span>
                     </div>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
         <div class="w-full text-center mt-6">
