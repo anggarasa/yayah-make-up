@@ -115,11 +115,11 @@
     </div>
 
     <!-- Modal confirmasi delete diskon -->
-    <div x-data="{ open: false }" x-show="open" @modal-confirmasi-diskon.window="open = true"
-        @close-modal-confirmasi-diskon.window="open = false" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100"
-        x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100"
-        x-transition:leave-end="opacity-0 transform scale-90"
+    <div x-data="{ open: false }" x-show="open" @modal-confirmasi-diskon-prouduct.window="open = true"
+        @close-modal-confirmasi-diskon-prouduct.window="open = false"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90"
         class="fixed inset-0 bg-gray-600 z-50 bg-opacity-50 overflow-y-auto h-full w-full" style="display: none;">
         <div class="relative top-20 mx-auto p-5 border w-[500px] shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
@@ -127,14 +127,14 @@
                     <i class="fa-solid fa-exclamation text-blue-600"></i>
                 </div>
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">Peringatan: Anda akan menghapus diskon
-                    {{ 'fds' }}.</h3>
+                    {{ $name }}.</h3>
                 <div class="mt-2 px-7 py-3">
                     <p class="text-sm text-gray-500">
                         Aksi ini tidak dapat diulang. Apakah Anda tetap ingin menghapus diskon?
                     </p>
                 </div>
                 <div class="flex justify-between items-center px-4 py-3 gap-10">
-                    <button type="button" wire:click="deleteDiskon"
+                    <button type="button" wire:click="deleteDiskonProduct"
                         class="px-2 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
                         Ya, Hapus
                     </button>

@@ -37,6 +37,17 @@ class ModalDiskonProduct extends Component
         $this->dispatch('modal-diskon-product');
     }
 
+    #[On('hapusDiskonProduct')]
+    public function hapusDiskonProduct($id)
+    {
+        $this->resetInput();
+        $diskonProduct = DiskonProduct::find($id);
+        $this->diskonProductId = $id;
+        $this->name = $diskonProduct->name;
+
+        $this->dispatch('modal-confirmasi-diskon-prouduct');
+    }
+
     public function createDiskonProduct()
     {
         
@@ -169,6 +180,26 @@ class ModalDiskonProduct extends Component
             $this->dispatch('diskon-product-error');
         }
     }
+
+    public function deleteDiskonProduct()
+    {
+        try {
+            $diskonProduct = DiskonProduct::find($this->diskonProductId);
+
+            $diskonProduct->delete();
+
+            $this->dispatch('create-diskon-produk')->to(DiskonDiskonProduct::class);
+            $this->resetInput();
+            
+            $this->judul = 'Success';
+            $this->message = 'Diskon Product Berhasil Dihapus';
+            $this->dispatch('diskon-product-success');
+        } catch (\Exception $e) {
+            $this->judul = 'Error';
+            $this->message = $e->getMessage();
+            $this->dispatch('diskon-product-error');
+        }
+    }
     
     public function render()
     {
@@ -196,5 +227,6 @@ class ModalDiskonProduct extends Component
         $this->reset(['name', 'jumlah_diskon', 'type','start_date', 'end_date', 'diskonProductId']);
         $this->is_edit = false;
         $this->dispatch('close-modal-diskon-product');
+        $this->dispatch('close-modal-confirmasi-diskon-prouduct');
     }
 }

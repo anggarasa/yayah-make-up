@@ -17,6 +17,18 @@ class DiskonProduct extends Component
     {
         $this->dispatch('editDiskonProduct', $id)->to(ModalDiskonProduct::class);
     }
+
+    public function hapusDiskonProduct($id)
+    {
+        $this->dispatch('hapusDiskonProduct', $id)->to(ModalDiskonProduct::class);
+    }
+
+    // Ubah active diskon product
+    public function updateStatusDiskonProduct($id, $status)
+    {
+        $diskonProduct = ModelsDiskonProduct::find($id);
+        $diskonProduct->update(['is_active' => $status]);
+    }
     
     public function render()
     {
