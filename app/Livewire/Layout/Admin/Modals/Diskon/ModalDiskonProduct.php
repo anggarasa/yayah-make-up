@@ -169,8 +169,7 @@ class ModalDiskonProduct extends Component
             }
 
             $this->dispatch('create-diskon-produk')->to(DiskonDiskonProduct::class);
-            $this->dispatch('close-modal-diskon-product');
-            $this->reset(['produks', 'name', 'jumlah_diskon', 'type', 'start_date', 'end_date']);
+            $this->resetInput();
             $this->judul = 'Success';
             $this->message = 'Diskon Product Berhasil Diupdate';
             $this->dispatch('diskon-product-success');
@@ -186,6 +185,17 @@ class ModalDiskonProduct extends Component
         try {
             $diskonProduct = DiskonProduct::find($this->diskonProductId);
 
+            if (!$diskonProduct) {
+                throw new \Exception('Diskon Product Tidak Ditemukan');
+            }
+
+            // Ambil ID produk yang terkait dengan diskon
+            $produkTerkait = $diskonProduct->products()->pluck('products.id')->toArray();
+
+            // Set harga_diskon menjadi null untuk semua produk yang terkait dengan diskon
+            Product::whereIn('id', $produkTerkait)->update(['harga_diskon' => null]);
+
+            // Hapus diskon
             $diskonProduct->delete();
 
             $this->dispatch('create-diskon-produk')->to(DiskonDiskonProduct::class);

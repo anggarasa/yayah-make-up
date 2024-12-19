@@ -2,16 +2,19 @@
 
 namespace App\Livewire\Pages\Admin\Diskon;
 
-use App\Livewire\Layout\Admin\Modals\Diskon\ModalDiskonProduct;
-use App\Models\DiskonProduct as ModelsDiskonProduct;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\On;
+use App\Models\Product;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Layout;
+use App\Models\DiskonProduct as ModelsDiskonProduct;
+use App\Livewire\Layout\Admin\Modals\Diskon\ModalDiskonProduct;
 
 #[Layout('layouts.admin-layout')]
 #[On('create-diskon-produk')]
 class DiskonProduct extends Component
 {
+
+    public $judul, $message;
 
     public function editDiskonProduct($id)
     {
@@ -26,8 +29,50 @@ class DiskonProduct extends Component
     // Ubah active diskon product
     public function updateStatusDiskonProduct($id, $status)
     {
-        $diskonProduct = ModelsDiskonProduct::find($id);
-        $diskonProduct->update(['is_active' => $status]);
+        try {
+            $diskonProduct = ModelsDiskonProduct::find($id);
+
+            if (!$diskonProduct) {
+                throw new \Exception('Diskon Product Tidak Ditemukan');
+            }
+
+            // Update status diskon
+            $diskonProduct->update(['is_active' => $status]);
+
+            // Ambil produk yang terkait dengan diskon
+            $produkTerkait = $diskonProduct->products;
+
+            if ($status === false) {
+                // Jika status diubah menjadi false, set harga_diskon menjadi null
+                Product::whereIn('id', $produkTerkait->pluck('id'))->update(['harga_diskon' => null]);
+            } else {
+                // Jika status diubah menjadi true, hitung ulang harga diskon
+                foreach ($produkTerkait as $produk) {
+                    // Hitung diskon produk
+                    if ($diskonProduct->type == 'percentage') {
+                        $harga_diskon = $produk->harga - ($produk->harga * ($diskonProduct->jumlah_diskon / 100));
+                    } elseif ($diskonProduct->type == 'fixed') {
+                        $harga_diskon = $produk->harga - $diskonProduct->jumlah_diskon;
+                    }
+
+                    // Pastikan harga tidak negatif
+                    $harga_diskon = max(0, $harga_diskon);
+
+                    // Ubah produk
+                    $produk->update([
+                        'harga_diskon' => $harga_diskon,
+                    ]);
+                }
+            }
+
+            $this->judul = 'Successes';
+            $this->message = 'Berhasil mengubah status diskon product.';
+            $this->dispatch('diskon-product-success');
+        } catch (\Exception $e) {
+            $this->judul = 'Error';
+            $this->message = $e->getMessage();
+            $this->dispatch('diskon-product-error');
+        }
     }
     
     public function render()

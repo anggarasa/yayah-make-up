@@ -135,8 +135,10 @@
                                                 $diskon->name }}</span>
                                         </div>
                                     </td>
-                                    <td class="size-px whitespace-nowrap">
-                                        <a class="block relative z-10" href="#">
+
+                                    <td class="size-px whitespace-nowrap" x-data="{ modalId: null }">
+                                        <a class="block relative z-10 cursor-pointer"
+                                            @click="modalId = 'diskon-product-detail_{{ $diskon->id }}'">
                                             <div class="px-6 py-2 flex -space-x-2">
                                                 @php
                                                 $displayedProducts = $diskon->products->take(3);
@@ -145,7 +147,7 @@
 
                                                 @foreach ($displayedProducts as $produk)
                                                 <div class="hs-tooltip inline-flex">
-                                                    <img class="hs-tooltip-toggle inline-block size-6 rounded-full ring-2 ring-white dark:ring-neutral-900"
+                                                    <img class="hs-tooltip-toggle inline-block size-6 rounded-full object-cover ring-2 ring-white dark:ring-neutral-900"
                                                         src="{{ asset('storage/'. $produk->cover_image) }}"
                                                         alt="{{ $produk->title }}">
                                                     <span
@@ -172,7 +174,37 @@
                                                 @endif
                                             </div>
                                         </a>
+
+                                        <!-- Modal -->
+                                        <div x-show="modalId === 'diskon-product-detail_{{ $diskon->id }}'" class="fixed
+                                        inset-0 z-50 p-4 bg-black bg-opacity-50 flex items-center justify-center"
+                                            style="display: none;">
+                                            <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6">
+                                                <h2 class="text-xl font-bold mb-4">Produk Terkait</h2>
+                                                <div
+                                                    class="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto max-h-80">
+                                                    @foreach ($diskon->products as $produk)
+                                                    <div class="border rounded-lg p-4 flex items-center">
+                                                        <img class="w-16 h-16 rounded-full object-cover mr-4"
+                                                            src="{{ asset('storage/' . $produk->cover_image) }}"
+                                                            alt="{{ $produk->title }}">
+                                                        <div>
+                                                            <a href="{{ route('show-product', $produk->id) }}"
+                                                                class="text-lg font-semibold hover:underline">{{
+                                                                Str::limit($produk->title, 15, '...') }}</a>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                                <div class="mt-6 text-right">
+                                                    <button @click="modalId = null"
+                                                        class="px-4 py-2 bg-gray-500 text-white rounded">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
+
+
                                     <td class="h-px w-72 whitespace-nowrap">
                                         <div class="px-6 py-3">
                                             <span
@@ -213,11 +245,11 @@
                                             </span>
                                         </div>
                                     </td>
-                                    <td class="size-px whitespace-nowrap">
+                                    <td class="size-px whitespace-nowrap" x-data="{ dropdownOpen: false }">
                                         <div class="px-6 py-3">
-                                            <span data-dropdown-toggle="update-status-diskon-product_{{ $diskon->id }}"
-                                                class="py-1 px-1.5 inline-flex cursor-pointer items-center gap-x-1 text-xs font-medium {{ $diskon->is_active == true ? 'bg-teal-100 text-teal-800' : 'bg-red-100 text-red-800' }} rounded-full hover:underline">
-                                                @if ($diskon->is_active == true)
+                                            <span @click="dropdownOpen = !dropdownOpen"
+                                                class="py-1 px-1.5 inline-flex cursor-pointer items-center gap-x-1 text-xs font-medium {{ $diskon->is_active ? 'bg-teal-100 text-teal-800' : 'bg-red-100 text-red-800' }} rounded-full hover:underline">
+                                                @if ($diskon->is_active)
                                                 <i class="fa-solid fa-circle-check text-[10px]"></i>
                                                 Active
                                                 @else
@@ -226,21 +258,20 @@
                                                 @endif
                                             </span>
                                         </div>
-                                        <!-- Dropdown menu -->
-                                        <div id="update-status-diskon-product_{{ $diskon->id }}"
-                                            class="z-10 hidden bg-gray-200 divide-y divide-gray-100 rounded-lg shadow w-44">
-                                            <ul class="py-2 text-sm text-gray-900"
-                                                aria-labelledby="dropdownDefaultButton">
+
+                                        <div x-show="dropdownOpen" @click.outside="dropdownOpen = false"
+                                            class="z-10 absolute bg-gray-200 divide-y divide-gray-100 rounded-lg shadow w-44"
+                                            style="display: none;">
+                                            <ul class="py-2 text-sm text-gray-900">
                                                 <li>
                                                     <a href="#"
-                                                        wire:click="updateStatusDiskonProduct({{ $diskon->id }}, true)"
+                                                        @click="dropdownOpen = false; $wire.updateStatusDiskonProduct({{ $diskon->id }}, true)"
                                                         class="block px-4 py-2 hover:bg-gray-300">Active</a>
                                                 </li>
                                                 <li>
                                                     <a href="#"
-                                                        wire:click="updateStatusDiskonProduct({{ $diskon->id }}, false)"
-                                                        class="block px-4 py-2 hover:bg-gray-300">Tidak
-                                                        Active</a>
+                                                        @click="dropdownOpen = false; $wire.updateStatusDiskonProduct({{ $diskon->id }}, false)"
+                                                        class="block px-4 py-2 hover:bg-gray-300">Tidak Active</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -276,4 +307,7 @@
         <!-- End Card -->
     </div>
     <!-- End Table Section -->
+
+    {{-- Modal --}}
+    @include('admin.modals.modal-diskon-product-notifikasi')
 </div>

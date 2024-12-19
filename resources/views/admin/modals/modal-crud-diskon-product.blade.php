@@ -1,13 +1,13 @@
 <div x-show="open" x-transition:enter="transition ease-out duration-300"
   x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100"
   x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100"
-  x-transition:leave-end="opacity-0 transform scale-90" class="fixed inset-0 z-50 flex items-center justify-center">
+  x-transition:leave-end="opacity-0 transform scale-90" class="fixed inset-0 z-40 flex items-center justify-center">
   <div class="bg-white rounded-lg shadow-xl max-w-3xl max-h-[90vh] w-full overflow-y-auto">
     <div class="px-6 py-4 border-b">
       <h2 class="text-xl font-bold text-center">Select Product</h2>
     </div>
 
-    <div class="px-6 py-4">
+    <div class="px-6 pt-4 pb-10">
       <div>
         <div class="grid grid-cols-2 gap-4">
           @foreach ($products as $produk)
@@ -25,11 +25,13 @@
       </div>
     </div>
 
-    <div class="px-6 py-4 bg-gray-100 text-center mb-10 border-t">
-      <button @click="open = false" type="button"
-        class="bg-ungu-dark text-white px-4 py-2 rounded shadow hover:bg-ungu-white transition">
-        Selesai
-      </button>
+    <div class="px-6 py-4 bg-gray-100 border-t sticky bottom-10 z-50">
+      <div class="flex justify-center space-x-4">
+        <button @click="open = false" type="button"
+          class="bg-ungu-dark text-white px-4 py-2 rounded shadow hover:bg-ungu-white transition">
+          Selesai
+        </button>
+      </div>
     </div>
   </div>
 </div>
