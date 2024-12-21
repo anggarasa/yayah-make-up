@@ -50,7 +50,6 @@ class ModalDiskonProduct extends Component
 
     public function createDiskonProduct()
     {
-        
         try {
             $this->validate([
                 'name' => 'required|string|max:255',
@@ -61,50 +60,65 @@ class ModalDiskonProduct extends Component
                 'end_date' => 'required|date|after_or_equal:start_date',
             ]);
 
+            // Cek apakah start_date sama dengan hari ini
+            $today = now()->format('Y-m-d'); // Mengambil tanggal hari ini
+            $isToday = $this->start_date === $today;
+
+            // Tentukan is_active berdasarkan start_date
+            $is_active = $isToday ? true : false;
+
+            // Buat diskon produk
             $diskonProduk = DiskonProduct::create([
                 'name' => $this->name,
                 'jumlah_diskon' => $this->jumlah_diskon,
                 'type' => $this->type,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'is_active' => $is_active, // Tambahkan is_active
             ]);
 
+            // Jika start_date adalah hari ini, update harga_diskon produk
+            if ($isToday) {
+                foreach ($this->produks as $produkId) {
+                    $product = Product::find($produkId);
+                    if ($product) {
+                        // Hitung harga setelah diskon berdasarkan tipe diskon
+                        if ($this->type == 'percentage') {
+                            // Diskon dalam persentase
+                            $diskonNominal = $product->harga * ($this->jumlah_diskon / 100);
+                            $hargaSetelahDiskon = $product->harga - $diskonNominal;
+                        } elseif ($diskonProduk->type == 'fixed') {
+                            $hargaSetelahDiskon = $product->harga - $diskonProduk->jumlah_diskon;
+                        }
+
+                        // Pastikan harga setelah diskon tidak negatif
+                        $hargaSetelahDiskon = max(0, $hargaSetelahDiskon);
+
+                        $product->harga_diskon = $hargaSetelahDiskon;
+                        $product->save(); // Simpan perubahan
+                    }
+                }
+            }
+
+            // Lampirkan produk ke diskon produk
             foreach ($this->produks as $produkId) {
-                $produk = Product::find($produkId); // Ambil objek produk
-            
-                if (!$produk) {
-                    continue; // Lewati jika produk tidak ditemukan
-                }
-            
                 $diskonProduk->products()->attach($produkId);
-            
-                // Hitung diskon produk
-                if ($diskonProduk->type == 'percentage') {
-                    $harga_diskon = $produk->harga - ($produk->harga * ($diskonProduk->jumlah_diskon / 100));
-                } elseif ($diskonProduk->type == 'fixed') {
-                    $harga_diskon = $produk->harga - $diskonProduk->jumlah_diskon;
-                }
-            
-                // Pastikan harga tidak negatif
-                $harga_diskon = max(0, $harga_diskon);
-            
-                // Ubah produk
-                $produk->update([
-                    'harga_diskon' => $harga_diskon,
-                ]);
             }
 
             $this->dispatch('create-diskon-produk')->to(DiskonDiskonProduct::class);
-            $this->dispatch('close-modal-diskon-product');
-            $this->reset(['produks', 'name', 'jumlah_diskon', 'type','start_date', 'end_date']);
+            $this->resetInput();
 
-            $this->judul = 'Suceess';
-            $this->message = 'Diskon Product Berhasil Dibuat';
-            $this->dispatch('diskon-product-success');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'success',
+                'message' => 'Diskon Product Berhasil Dibuat',
+                'title' => 'Sukses'
+            ]);
         } catch (\Exception $e) {
-            $this->judul = 'Error';
-            $this->message = $e->getMessage();
-            $this->dispatch('diskon-product-error');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+                'title' => 'Error'
+            ]);
         }
     }
 
@@ -126,12 +140,20 @@ class ModalDiskonProduct extends Component
                 'end_date' => 'required|date|after_or_equal:start_date',
             ]);
 
+            // Cek apakah start_date sama dengan hari ini
+            $today = now()->format('Y-m-d');
+            $isToday = $this->start_date === $today;
+
+            // Tentukan is_active berdasarkan start_date
+            $is_active = $isToday ? true : false;
+
             $diskonProduk->update([
                 'name' => $this->name,
                 'jumlah_diskon' => $this->jumlah_diskon,
                 'type' => $this->type,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'is_active' => $is_active,
             ]);
 
             // Ambil ID produk sebelumnya
@@ -144,39 +166,49 @@ class ModalDiskonProduct extends Component
             $produkTidakTerhubung = array_diff($produkSebelumnya, $this->produks);
             Product::whereIn('id', $produkTidakTerhubung)->update(['harga_diskon' => null]);
 
-            // Hitung ulang harga diskon untuk produk yang terhubung
-            foreach ($this->produks as $produkId) {
-                $produk = Product::find($produkId); 
+            // Hitung ulang harga diskon untuk produk yang terhubung, hanya jika start_date adalah hari ini
+            if ($isToday) {
+                foreach ($this->produks as $produkId) {
+                    $produk = Product::find($produkId); 
 
-                if (!$produk) {
-                    continue; 
+                    if (!$produk) {
+                        continue; 
+                    }
+
+                    // Hitung diskon produk
+                    if ($diskonProduk->type == 'percentage') {
+                        $harga_diskon = $produk->harga - ($produk->harga * ($diskonProduk->jumlah_diskon / 100));
+                    } elseif ($diskonProduk->type == 'fixed') {
+                        $harga_diskon = $produk->harga - $diskonProduk->jumlah_diskon;
+                    }
+
+                    // Pastikan harga tidak negatif
+                    $harga_diskon = max(0, $harga_diskon);
+
+                    // Ubah produk
+                    $produk->update([
+                        'harga_diskon' => $harga_diskon,
+                    ]);
                 }
-
-                // Hitung diskon produk
-                if ($diskonProduk->type == 'percentage') {
-                    $harga_diskon = $produk->harga - ($produk->harga * ($diskonProduk->jumlah_diskon / 100));
-                } elseif ($diskonProduk->type == 'fixed') {
-                    $harga_diskon = $produk->harga - $diskonProduk->jumlah_diskon;
-                }
-
-                // Pastikan harga tidak negatif
-                $harga_diskon = max(0, $harga_diskon);
-
-                // Ubah produk
-                $produk->update([
-                    'harga_diskon' => $harga_diskon,
-                ]);
+            } else {
+                // Jika start_date tidak sama dengan hari ini, set harga_diskon menjadi null untuk semua produk terkait
+                Product::whereIn('id', $this->produks)->update(['harga_diskon' => null]);
             }
 
             $this->dispatch('create-diskon-produk')->to(DiskonDiskonProduct::class);
             $this->resetInput();
-            $this->judul = 'Success';
-            $this->message = 'Diskon Product Berhasil Diupdate';
-            $this->dispatch('diskon-product-success');
+
+            $this->dispatch('notificationAdmin', [
+                'type' =>'success',
+                'message' => 'Diskon Product Berhasil Diubah',
+                'title' => 'Sukses'
+            ]);
         } catch (\Exception $e) {
-            $this->judul = 'Error';
-            $this->message = $e->getMessage();
-            $this->dispatch('diskon-product-error');
+            $this->dispatch('notificationAdmin', [
+                'type' =>'error',
+                'message' => $e->getMessage(),
+                'title' => 'Error'
+            ]);
         }
     }
 

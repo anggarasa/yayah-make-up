@@ -307,7 +307,4 @@
         <!-- End Card -->
     </div>
     <!-- End Table Section -->
-
-    {{-- Modal --}}
-    @include('admin.modals.modal-diskon-product-notifikasi')
 </div>

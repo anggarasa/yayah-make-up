@@ -22,6 +22,20 @@
 
     {{-- Css Custom --}}
     <style>
+        @keyframes progress {
+            from {
+                width: 100%
+            }
+
+            to {
+                width: 0%
+            }
+        }
+
+        .notification-progress {
+            animation: progress 3s linear forwards;
+        }
+
         .quill-content ol {
             list-style-type: decimal;
             padding-left: 1.5em;
@@ -176,6 +190,7 @@
 
 <body>
     <div id="notification-container"></div>
+    <livewire:layout.admin.notification.popup-notification-admin />
     <div class="antialiased bg-gray-100 font-poppins">
         <livewire:layout.admin.admin-navbar />
 

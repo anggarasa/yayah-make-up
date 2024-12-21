@@ -14,8 +14,6 @@ use App\Livewire\Layout\Admin\Modals\Diskon\ModalDiskonProduct;
 class DiskonProduct extends Component
 {
 
-    public $judul, $message;
-
     public function editDiskonProduct($id)
     {
         $this->dispatch('editDiskonProduct', $id)->to(ModalDiskonProduct::class);
@@ -65,13 +63,17 @@ class DiskonProduct extends Component
                 }
             }
 
-            $this->judul = 'Successes';
-            $this->message = 'Berhasil mengubah status diskon product.';
-            $this->dispatch('diskon-product-success');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'success',
+                'message' => 'Berhasil mengubah status diskon product.',
+                'title' => 'Sukses'
+            ]);
         } catch (\Exception $e) {
-            $this->judul = 'Error';
-            $this->message = $e->getMessage();
-            $this->dispatch('diskon-product-error');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+                'title' => 'Error'
+            ]);
         }
     }
     
