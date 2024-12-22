@@ -8,11 +8,14 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Layout;
 use App\Models\DiskonProduct as ModelsDiskonProduct;
 use App\Livewire\Layout\Admin\Modals\Diskon\ModalDiskonProduct;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 #[Layout('layouts.admin-layout')]
 #[On('create-diskon-produk')]
 class DiskonProduct extends Component
 {
+    use WithPagination, WithoutUrlPagination;
 
     public function editDiskonProduct($id)
     {
@@ -80,7 +83,7 @@ class DiskonProduct extends Component
     public function render()
     {
         return view('livewire.pages.admin.diskon.diskon-product', [
-            'diskons' => ModelsDiskonProduct::latest()->get(),
+            'diskons' => ModelsDiskonProduct::latest()->paginate(5),
         ]);
     }
 }

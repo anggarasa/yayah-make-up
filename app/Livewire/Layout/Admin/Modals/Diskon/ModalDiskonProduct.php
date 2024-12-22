@@ -266,7 +266,7 @@ class ModalDiskonProduct extends Component
 
     public function resetInput()
     {
-        $this->reset(['name', 'jumlah_diskon', 'type','start_date', 'end_date', 'diskonProductId']);
+        $this->reset(['name', 'jumlah_diskon', 'type','start_date', 'end_date', 'diskonProductId', 'produks']);
         $this->is_edit = false;
         $this->dispatch('close-modal-diskon-product');
         $this->dispatch('close-modal-confirmasi-diskon-prouduct');

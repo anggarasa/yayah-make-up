@@ -42,77 +42,106 @@
 
             {{-- Tampilan List Product --}}
             @if (count($products) > 0)
-            <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+            <div class="mb-4 grid gap-4 grid-cols-2 md:mb-8 md:grid-cols-3 xl:grid-cols-5">
                 @foreach ($products as $product)
-                <div class="rounded-lg border border-gray-200 bg-white shadow-sm">
-                    <div class="w-full">
-                        <a href="{{ route('show-product', $product->id) }}" wire:navigate>
-                            <img class="w-72 rounded-t-lg h-64 object-cover"
-                                src="{{ asset('storage/'. $product->cover_image) }}" alt="" />
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <div class="mb-4 flex items-center justify-between gap-4">
-                            <span class="me-2 rounded bg-ungu-tipis px-2.5 py-0.5 text-xs font-medium text-ungu-white">
-                                diskon </span>
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden group relative">
+                    <div class="relative">
+                        <img src="{{ asset('storage/'. $product->cover_image) }}"
+                            class="h-48 w-full object-cover rounded-t-xl" alt="{{ $product->title }}" />
 
-                            <div class="flex items-center justify-end gap-1">
-                                <button type="button" data-tooltip-target="tooltip-add-to-favorites"
-                                    class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900hite">
-                                    <span class="sr-only"> Add to Favorites </span>
-                                    <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z" />
+                        <!-- Dropdown Menu untuk Desktop -->
+                        <div
+                            class="hidden md:block absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div x-data="{ open: false }" class="relative">
+                                <button @click="open = !open"
+                                    class="bg-gray-200 rounded-full p-1 hover:bg-gray-300 focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                            d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                                     </svg>
                                 </button>
-                                <div id="tooltip-add-to-favorites" role="tooltip"
-                                    class="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300"
-                                    data-popper-placement="top">
-                                    Add to favorites
-                                    <div class="tooltip-arrow" data-popper-arrow=""></div>
+
+                                <div x-show="open" @click.away="open = false"
+                                    x-transition:enter="transition ease-out duration-300"
+                                    x-transition:enter-start="opacity-0 scale-90"
+                                    x-transition:enter-end="opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-300"
+                                    x-transition:leave-start="opacity-100 scale-100"
+                                    x-transition:leave-end="opacity-0 scale-90"
+                                    class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50 border">
+                                    <a href="{{ route('update-product', $product->id) }}" wire:navigate
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-edit mr-2"></i>Edit
+                                    </a>
+                                    <a href="{{ route('delete-product', $product->id) }}" wire:navigate
+                                        class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100">
+                                        <i class="fas fa-trash mr-2"></i>Hapus
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
-                        <a href="{{ route('show-product', $product->id) }}" wire:navigate
-                            class="text-lg font-semibold leading-tight text-gray-900 hover:underline">
-                            {{ $product->title }}
-                        </a>
-
-                        <div class="mt-2 flex items-center gap-2">
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-star text-yellow-400"></i>
-
-                                <i class="fa-solid fa-star text-yellow-400"></i>
-
-                                <i class="fa-solid fa-star text-yellow-400"></i>
-
-                                <i class="fa-solid fa-star text-yellow-400"></i>
-
-                                <i class="fa-regular fa-star text-yellow-400"></i>
-                            </div>
-
-                            <p class="text-sm font-medium text-gray-900">4.0</p>
-                            <p class="text-sm font-medium text-gray-500">(455)</p>
+                        <!-- Tombol Edit dan Hapus untuk Tablet dan Mobile -->
+                        <div class="lg:hidden absolute top-2 right-2 flex space-x-2">
+                            <a href="{{ route('update-product', $product->id) }}" wire:navigate
+                                class="bg-blue-500 text-white px-2 py-1 rounded-full hover:bg-blue-600">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{ route('delete-product', $product->id) }}" wire:navigate
+                                class="bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </div>
 
-                        <p class="text-2xl mt-4 font-extrabold leading-tight text-gray-900">
-                            {{ $product->formatted_harga }}
-                        </p>
+                        <!-- Existing Discount Logic -->
+                        @if ($product->diskonProducts->isNotEmpty())
+                        @php
+                        $diskon = $product->diskonProducts->first();
+                        @endphp
 
-                        <div class="flex justify-between items-center mt-5">
-                            <a href="{{ route('update-product', $product->id) }}" wire:navigate
-                                class="inline-flex items-center rounded-lg bg-ungu-dark px-5 py-2.5 text-sm font-medium text-white hover:bg-ungu-white focus:outline-none focus:ring-4  focus:ring-ungu-tipis">
-                                <i class="fa-solid fa-pen-to-square -ms-2 me-2"></i>
-                                Ubah
-                            </a>
+                        @if ($diskon->is_active)
+                        @if ($diskon->type === 'fixed')
+                        @php
+                        $persentaseDiskon = ($diskon->jumlah_diskon / $product->harga) * 100;
+                        @endphp
+                        <div class="absolute top-2 left-2 bg-ungu-dark text-white px-2 py-1 rounded-lg text-sm">
+                            -{{ number_format($persentaseDiskon, 0, ',', '.') }}%
+                        </div>
+                        @elseif ($diskon->type === 'percentage')
+                        <div class="absolute top-2 left-2 bg-ungu-dark text-white px-2 py-1 rounded-lg text-sm">
+                            -{{ number_format($diskon->jumlah_diskon, 0, ',', '.') }}%
+                        </div>
+                        @endif
+                        @endif
+                        @endif
+                    </div>
 
-                            <a href="{{ route('delete-product', $product->id) }}" wire:navigate
-                                class="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-4 focus:ring-red-300">
-                                <i class="fa-solid fa-trash-can -ms-2 me-2"></i>
-                                Hapus
-                            </a>
+                    <div class="p-4">
+                        <a href="{{ route('show-product', $product->id) }}"
+                            class="font-semibold mb-2 hover:underline">{{
+                            Str::limit($product->title, 20, '...') }}</a>
+                        <div class="flex flex-col mb-2">
+                            @if (!empty($product->harga_diskon))
+                            <h3 class="text-ungu-dark font-bold text-lg mb-1">
+                                {{ number_format($product->harga_diskon, 0, ',', '.') }}
+                            </h3>
+                            @else
+                            <h3 class="text-ungu-dark font-bold text-lg mb-1">
+                                {{ $product->formatted_harga }}
+                            </h3>
+                            @endif
+
+                            @if (!empty($product->harga_diskon))
+                            <span class="text-gray-400 line-through text-sm">{{ $product->formatted_harga }}</span>
+                            @endif
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <span class="text-gray-600 text-sm">4.9</span>
+                            </div>
+                            <span class="text-gray-600 text-sm">Terjual 1.2rb</span>
                         </div>
                     </div>
                 </div>
@@ -130,8 +159,12 @@
             @endif
             {{-- Tampilan List Product --}}
 
-            <div class="mx-[425px]">
-                {{ $products->links() }}
+            <div class="w-full text-center mt-6">
+                @if ($products->count() < $totalData) <button type="button" wire:click="loadMore"
+                    class="rounded-lg border border-ungu-white bg-ungu-dark px-5 py-2.5 text-sm font-medium text-white hover:bg-ungu-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100">
+                    Show more
+                    </button>
+                    @endif
             </div>
         </div>
     </section>

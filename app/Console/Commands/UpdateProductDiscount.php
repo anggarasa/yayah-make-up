@@ -31,7 +31,7 @@ class UpdateProductDiscount extends Command
 
         // Aktifkan diskon yang mulai hari ini
         $activeDiscounts = DiskonProduct::where('start_date', $today)
-            ->where('is_active', true)
+            ->where('is_active', false)
             ->get();
 
         foreach ($activeDiscounts as $discount) {
@@ -42,6 +42,8 @@ class UpdateProductDiscount extends Command
 
                 $product->update(['harga_diskon' => $hargaDiskon]);
             }
+
+            $discount->update(['is_active' => true]);
         }
 
         // Nonaktifkan diskon yang berakhir hari ini
@@ -53,6 +55,8 @@ class UpdateProductDiscount extends Command
             foreach ($discount->products as $product) {
                 $product->update(['harga_diskon' => null]);
             }
+
+            $discount->update(['is_active' => false]);
         }
 
         $this->info('Produk diskon diperbarui.');

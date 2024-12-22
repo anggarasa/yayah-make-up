@@ -30,9 +30,27 @@
                 <div class="relative">
                     <img src="{{ asset('storage/'. $product->cover_image) }}"
                         class="h-48 w-full object-cover rounded-t-xl" alt="{{ $product->title }}" />
+                    @if ($product->diskonProducts->isNotEmpty())
+                    @php
+                    $diskon = $product->diskonProducts->first();
+                    @endphp
+
+                    @if ($diskon->is_active)
+                    @if ($diskon->type === 'fixed')
+                    @php
+                    // Hitung persentase diskon dari harga fixed
+                    $persentaseDiskon = ($diskon->jumlah_diskon / $product->harga) * 100;
+                    @endphp
                     <div class="absolute top-2 left-2 bg-ungu-dark text-white px-2 py-1 rounded-lg text-sm">
-                        -50%
+                        -{{ number_format($persentaseDiskon, 0, ',', '.') }}%
                     </div>
+                    @elseif ($diskon->type === 'percentage')
+                    <div class="absolute top-2 left-2 bg-ungu-dark text-white px-2 py-1 rounded-lg text-sm">
+                        -{{ number_format($diskon->jumlah_diskon, 0, ',', '.') }}%
+                    </div>
+                    @endif
+                    @endif
+                    @endif
                 </div>
                 <div class="p-4">
                     <h3 class="font-semibold mb-2 truncate">{{
