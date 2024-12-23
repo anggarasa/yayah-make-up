@@ -110,10 +110,9 @@
                                 Diskon Product
                             </x-sidebar-dropdown-link>
 
-                            <x-sidebar-dropdown-link href="{{ route('baju-pernikahan') }}" wire:navigate>Promo
+                            <x-sidebar-dropdown-link href="{{ route('baju-pernikahan') }}" wire:navigate>
+                                Promo
                             </x-sidebar-dropdown-link>
-
-                            <x-sidebar-dropdown-link href="#">Delete Product</x-sidebar-dropdown-link>
                         </x-slot>
                     </x-sidebar-button-link>
                 </li>

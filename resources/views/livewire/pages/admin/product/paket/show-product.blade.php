@@ -128,8 +128,7 @@
                             {{-- Total Asli Sebelum Diskon --}}
                             @if (!empty($product->harga_diskon))
                             <span class="text-sm text-gray-500 line-through">Rp {{
-                                number_format($product->formatted_harga,
-                                0, ',', '.') }}</span>
+                                $product->formatted_harga }}</span>
                             @endif
                         </div>
 
@@ -179,7 +178,7 @@
                             </button>
                             <button
                                 class="flex-1 bg-ungu-dark text-white py-3 rounded-lg hover:bg-ungu-white cursor-not-allowed transition">
-                                Buy Now
+                                Rent Now
                             </button>
                         </div>
                     </div>

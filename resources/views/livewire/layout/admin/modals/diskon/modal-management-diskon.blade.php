@@ -135,7 +135,4 @@
             </div>
         </div>
     </div>
-
-    {{-- Modal --}}
-    @include('admin.modals.modal-diskon-notifikasi')
 </div>

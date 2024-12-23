@@ -2,12 +2,11 @@
 
 namespace App\Livewire\Layout\Admin\Modals\Diskon;
 
-use App\Livewire\Pages\Admin\Diskon\ManagementDiskon;
 use App\Models\Diskon;
 use Livewire\Component;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Validate;
+use Livewire\Attributes\Layout;
+use App\Livewire\Pages\Admin\Diskon\ManagementDiskon;
 
 #[Layout('layouts.admin-layout')]
 class ModalManagementDiskon extends Component
@@ -16,9 +15,6 @@ class ModalManagementDiskon extends Component
 
     public $diskonId;
     public $is_edit = false;
-
-    // Modal success & error messages
-    public $judul, $message;
 
     // Modal Edit Diskon
     #[On('editDiskon')]
@@ -59,6 +55,13 @@ class ModalManagementDiskon extends Component
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after_or_equal:start_date',
             ]);
+
+            // Cek apakah start_date sama dengan hari ini
+            $today = now()->format('Y-m-d');
+            $isToday = $this->start_date === $today;
+
+            $isActive = $isToday ? true : false;
+
             // Create Diskon
             Diskon::create([
                 'code' => $this->code,
@@ -66,19 +69,24 @@ class ModalManagementDiskon extends Component
                 'type' => $this->type,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'is_active' => $isActive,
             ]);
 
             $this->dispatch('create-diskon')->to(ManagementDiskon::class);
             $this->reset(['code', 'harga_diskon', 'type','start_date', 'end_date']);
             $this->dispatch('close-modal-diskon');
-            
-            $this->judul = 'Suceess';
-            $this->message = 'Diskon berhasil ditambahkan';
-            $this->dispatch('diskon-success');
+
+            $this->dispatch('notificationAdmin', [
+                'type' => 'success',
+                'message' => 'Diskon berhasil ditambahkan',
+                'title' => 'Sukses'
+            ]);
         } catch (\Exception $e) {
-            $this->judul = 'Error';
-            $this->message = $e->getMessage();
-            $this->dispatch('diskon-error');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+                'title' => 'Error'
+            ]);
         }
     }
 
@@ -93,6 +101,13 @@ class ModalManagementDiskon extends Component
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after_or_equal:start_date',
             ]);
+
+            // Cek apakah start_date sama dengan hari ini
+            $today = now()->format('Y-m-d');
+            $isToday = $this->start_date === $today;
+
+            $isActive = $isToday ? true : false;
+
             // Update Diskon
             $diskon = Diskon::find($this->diskonId);
             $diskon->update([
@@ -101,18 +116,23 @@ class ModalManagementDiskon extends Component
                 'type' => $this->type,
                'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'is_active' => $isActive
             ]);
 
             $this->dispatch('create-diskon')->to(ManagementDiskon::class);
             $this->resetInput();
             
-            $this->judul = 'Suceess';
-            $this->message = 'Diskon berhasil diupdate';
-            $this->dispatch('diskon-success');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'success',
+                'message' => 'Diskon berhasil diupdate',
+                'title' => 'Sukses'
+            ]);
         } catch (\Exception $e) {
-            $this->judul = 'Error';
-            $this->message = $e->getMessage();
-            $this->dispatch('diskon-error');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+                'title' => 'Error'
+            ]);
         }
     }
 
@@ -126,13 +146,17 @@ class ModalManagementDiskon extends Component
             $this->dispatch('create-diskon')->to(ManagementDiskon::class);
             $this->resetInput();
             
-            $this->judul = 'Suceess';
-            $this->message = 'Diskon berhasil dihapus!';
-            $this->dispatch('diskon-success');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'success',
+                'message' => 'Diskon berhasil dihapus!',
+                'title' => 'Sukses'
+            ]);
         } catch (\Exception $e) {
-            $this->judul = "Error";
-            $this->message = $e->getMessage();
-            $this->dispatch('diskon-error');
+            $this->dispatch('notificationAdmin', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+                'title' => "Error"
+            ]);
         }
     }
 

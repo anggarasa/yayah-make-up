@@ -17,7 +17,13 @@
                                 <div>
                                     <h4 class="font-semibold">{{ $product->title }}</h4>
                                     <p class="text-gray-600">Dokumentasi + Dekorasi + Catering</p>
+                                    @if (!empty($product->harga_diskon))
+                                    <p class="text-ungu-dark font-semibold mt-2">Rp {{
+                                        number_format($product->harga_diskon,
+                                        0, ',', '.') }}</p>
+                                    @else
                                     <p class="text-ungu-dark font-semibold mt-2">{{ $product->formatted_harga }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

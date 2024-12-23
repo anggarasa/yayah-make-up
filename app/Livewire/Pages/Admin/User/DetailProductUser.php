@@ -16,6 +16,9 @@ class DetailProductUser extends Component
     public $selectedReceptionDresses = [];
     public $hasDresses = false;
 
+    public $showFullDescription = false;
+    public $descriptionLimit = 500; // Batasan karakter untuk tampilan awal
+
     public $message, $judul;
 
     public function mount($id)
@@ -42,6 +45,11 @@ class DetailProductUser extends Component
     public function prev()
     {
         $this->currentIndex = ($this->currentIndex - 1 + count($this->mediaProducts)) % count($this->mediaProducts);
+    }
+
+    public function toggleDescription()
+    {
+        $this->showFullDescription = !$this->showFullDescription;
     }
 
 

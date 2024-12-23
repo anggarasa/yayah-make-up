@@ -29,8 +29,22 @@ class ManagementDiskon extends Component
     // Update status diskon
     public function updateStatusDiskon($diskonId, $status)
     {
-        $diskon = Diskon::find($diskonId);
-        $diskon->update(['is_active' => $status]);
+        try {
+            $diskon = Diskon::find($diskonId);
+            $diskon->update(['is_active' => $status]);
+
+            $this->dispatch('notificationAdmin', [
+                'type' => 'success',
+                'message' => 'Berhasil mengubah status diskon.',
+                'title' => 'Sukses'
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('notificationAdmin', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+                'title' => 'Error'
+            ]);
+        }
     }
     
     public function render()

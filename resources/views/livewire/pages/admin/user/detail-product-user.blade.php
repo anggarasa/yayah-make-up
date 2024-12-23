@@ -40,13 +40,13 @@
         </div>
 
 
-        <div class="bg-white p-4 rounded shadow">
-            <div class="md:flex">
-                <div class="md:w-1/2">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-2/5">
                     @if(count($mediaProducts) > 0)
                     <div class="relative">
                         @if($mediaProducts[$currentIndex]->media_type == 'Video')
-                        <video class="w-full h-96 rounded-lg shadow-md" controls>
+                        <video class="w-full h-96 rounded-lg shadow-md" controls autoplay>
                             <source src="{{ asset('storage/' . $mediaProducts[$currentIndex]->file_path) }}"
                                 type="video/mp4">
                             Your browser does not support the video tag.
@@ -92,157 +92,125 @@
                         </div>
                     </div>
                     @else
-                    <p class="text-center text-gray-500">No mediaProducts found.</p>
-                    @endif
-
-                    <!-- Penilaian Produk dan Rating -->
-                    <div class="md:mt-8 md:pl-6 hidden md:block">
-                        <div class="text-lg font-bold mb-2">
-                            Penilaian Produk
-                        </div>
-                        <div class="flex items-center">
-                            <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path
-                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                            </svg>
-                            <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path
-                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                            </svg>
-                            <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path
-                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                            </svg>
-                            <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path
-                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-300 me-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                <path
-                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                            </svg>
-                            <p class="ms-1 text-sm font-medium text-gray-500">4.95</p>
-                            <p class="ms-1 text-sm font-medium text-gray-500">out of</p>
-                            <p class="ms-1 text-sm font-medium text-gray-500">5</p>
-                        </div>
-                        <p class="text-sm font-medium text-gray-500">1,745 global ratings</p>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium text-ungu-dark hover:underline">5
-                                star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-yellow-300 rounded" style="width: 70%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">70%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium text-ungu-dark hover:underline">4
-                                star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-yellow-300 rounded" style="width: 17%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">17%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium text-ungu-dark hover:underline">3
-                                star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-yellow-300 rounded" style="width: 8%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">8%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium text-ungu-dark hover:underline">2
-                                star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-yellow-300 rounded" style="width: 4%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">4%</span>
-                        </div>
-                        <div class="flex items-center mt-4">
-                            <a href="#" class="text-sm font-medium text-ungu-dark hover:underline">1
-                                star</a>
-                            <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div class="h-5 bg-yellow-300 rounded" style="width: 1%"></div>
-                            </div>
-                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">1%</span>
-                        </div>
+                    <div
+                        class="flex flex-col items-center justify-center min-h-[400px] bg-white rounded-lg shadow-sm p-8 m-4">
+                        <i class="fas fa-box-open text-6xl text-gray-400 mb-4"></i>
+                        <p class="text-xl text-gray-500 font-medium">No mediaProducts found.</p>
+                        <p class="text-gray-400 mt-2">Try adding some new media content</p>
                     </div>
+                    @endif
                 </div>
 
-                <div class="md:w-1/2 p-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $product->title }}</h2>
-                    <p class="text-gray-600 text-sm mb-4">SKU: 123456</p>
+                <!-- Product Info -->
+                <div class="lg:w-3/5">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h1 class="text-2xl font-bold mb-2">{{ $product->title }}</h1>
 
-                    <div class="mb-4">
-                        <span class="text-3xl font-bold text-ungu-white">{{ $product->formatted_harga }}</span>
-                        <span class="text-sm text-gray-500 line-through ml-2">Rp 1.299.000</span>
+                        {{-- Rating Product --}}
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="ml-2 text-gray-600">(4.5/5 - 128 reviews)</span>
+                        </div>
+
+                        <div class="text-3xl font-bold text-ungu-dark mb-4">
+                            {{-- Pegecekan apakah produk sedang diskon apa tidak --}}
+                            @if (!empty($product->harga_diskon))
+                            Rp {{ number_format($product->harga_diskon,
+                            0, ',', '.') }}
+                            @else
+                            {{ $product->formatted_harga }}
+                            @endif
+
+                            {{-- Total Asli Sebelum Diskon --}}
+                            @if (!empty($product->harga_diskon))
+                            <span class="text-sm text-gray-500 line-through">Rp {{
+                                $product->formatted_harga }}</span>
+                            @endif
+                        </div>
+
+                        {{-- Baju Akad Selection --}}
+                        @if($hasDresses)
+                        @if ($product->dresses()->where('dress_type', 'Akad')->exists())
+                        <div class="mb-6">
+                            <h2 class="font-semibold mb-2">Baju Akad</h2>
+                            <div class="flex gap-2">
+                                @foreach($product->dresses()->where('dress_type', 'Akad')->get() as $akad)
+                                <div :class="{ 'border-ungu-dark bg-purple-50': {{ $selectedAkadDress }} === {{ $akad->id }} }"
+                                    wire:click="selectAkadDress({{ $akad->id }})"
+                                    class="cursor-pointer border rounded-md p-2 flex flex-col items-center">
+                                    <img src="{{ asset('storage/file-dress/'. $akad->image_dress) }}"
+                                        alt="{{ $akad->name }}" class="w-20 h-20 object-cover mb-2">
+                                    <span>{{ $akad->name }}</span>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+
+                        <!-- Baju Resepsi Section -->
+                        @if ($product->dresses()->where('dress_type', 'Resepsi')->exists())
+                        <div class="mb-6">
+                            <h2 class="font-semibold mb-2">Baju Resepsi (Pilih 2)</h2>
+                            <div class="flex gap-2">
+                                @foreach($product->dresses()->where('dress_type', 'Resepsi')->get() as $resepsi)
+                                <div class="cursor-pointer border rounded-md p-2 flex flex-col items-center" :class=" { 'border-ungu-dark bg-purple-50' : @js(in_array($resepsi->id,
+                                    $selectedReceptionDresses)) }"
+                                    wire:click="toggleReceptionDress({{ $resepsi->id }})">
+                                    <img src="{{ asset('storage/file-dress/'. $resepsi->image_dress) }}"
+                                        alt="{{ $resepsi->name }}" class="w-20 h-20 object-cover mb-2">
+                                    <span>{{ $resepsi->name }}</span>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+                        @endif
+
+                        {{-- Button --}}
+                        <div class="flex gap-4">
+                            <button
+                                class="flex-1 bg-transparent border border-ungu-dark text-ungu-dark py-3 rounded-lg hover:bg-gray-100 transition">
+                                Add to Cart
+                            </button>
+                            <button wire:click="checkout"
+                                class="flex-1 bg-ungu-dark text-white py-3 rounded-lg hover:bg-ungu-white transition">
+                                Rent Now
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="mb-4">
-                        <div class="text-lg font-bold mb-2">
-                            Deskripsi Produk :
-                        </div>
+                    <!-- Product Description -->
+                    <div x-data="{ expanded: false }" class="bg-white rounded-lg shadow-lg p-6 mt-6">
+                        <h2 class="text-xl font-bold mb-4">Product Description</h2>
+
                         <div class="quill-content">
+                            @if(strlen($product->description) > $descriptionLimit)
+                            <div x-show="!expanded">
+                                {!! Str::limit($product->description, $descriptionLimit, '') !!}
+                                <span class="text-gray-400">...</span>
+                            </div>
+                            <div x-show="expanded" x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                x-transition:enter-end="opacity-100 transform translate-y-0">
+                                {!! $product->description !!}
+                            </div>
+                            <button @click="expanded = !expanded"
+                                class="mt-2 text-[#7A1CAC] hover:text-[#6A189C] text-sm font-medium focus:outline-none">
+                                <span x-text="expanded ? 'Lihat lebih sedikit' : 'Lihat lebih banyak'"></span>
+                            </button>
+                            @else
                             {!! $product->description !!}
+                            @endif
                         </div>
-                    </div>
-
-                    <!-- Pilihan Baju Pernikahan -->
-                    @if($hasDresses)
-                    <div>
-                        @if($product->dresses()->where('dress_type', 'Akad')->exists())
-                        <div class="mb-8">
-                            <h2 class="text-xl font-semibold mb-4">Pilih Baju Akad</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                @foreach($product->dresses()->where('dress_type', 'Akad')->get() as $dress)
-                                <div class="border rounded-lg p-4 cursor-pointer"
-                                    :class="{ 'border-ungu-dark bg-purple-50': {{ $selectedAkadDress }} === {{ $dress->id }} }"
-                                    wire:click="selectAkadDress({{ $dress->id }})">
-                                    <img src="{{ asset('storage/file-dress/'. $dress->image_dress) }}"
-                                        alt="{{ $dress->name }}" class="w-full h-48 object-cover mb-2">
-                                    <h3 class="font-semibold text-center">{{ $dress->name }}</h3>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-
-                        @if($product->dresses()->where('dress_type', 'Resepsi')->exists())
-                        <div class="mb-8">
-                            <h2 class="text-xl font-semibold mb-4">Pilih Baju Resepsi (Pilih 2)</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                @foreach($product->dresses()->where('dress_type', 'Resepsi')->get() as $dress)
-                                <div class="border rounded-lg p-4 cursor-pointer"
-                                    :class="{ 'border-ungu-dark bg-purple-50': @js(in_array($dress->id, $selectedReceptionDresses)) }"
-                                    wire:click="toggleReceptionDress({{ $dress->id }})">
-                                    <img src="{{ asset('storage/file-dress/'. $dress->image_dress) }}"
-                                        alt="{{ $dress->name }}" class="w-full h-48 object-cover mb-2">
-                                    <h3 class="font-semibold text-center">{{ $dress->name }}</h3>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-                    @endif
-
-                    <!-- Tombol Beli -->
-                    <div class="flex justify-between items-center space-x-4">
-                        <button type="button"
-                            class="w-full bg-transparent text-ungu-dark py-2 px-4 rounded-md hover:bg-gray-100 border border-ungu-dark focus:outline-none focus:ring-2 focus:ring-ungu-white focus:ring-offset-2 cursor-not-allowed">
-                            Tambahkan ke Keranjang
-                        </button>
-                        <button type="submit" wire:click="checkout"
-                            class="w-full bg-ungu-dark text-white py-2 px-4 rounded-md hover:bg-ungu-white focus:outline-none focus:ring-2 focus:ring-ungu-dark focus:ring-offset-2">
-                            Sewa Sekarang
-                        </button>
                     </div>
                 </div>
+
             </div>
         </div>
 

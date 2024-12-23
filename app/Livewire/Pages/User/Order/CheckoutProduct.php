@@ -73,7 +73,7 @@ class CheckoutProduct extends Component
         $this->customer_email = $user->email;
         $this->customer_phone = $user->phone_number;
         $this->customer_address = $user->alamat;
-        $this->totalHarga = $product->harga;
+        $this->totalHarga = $product->harga_diskon ?? $product->harga;
         $this->originalHarga = $product->harga;
     }
 

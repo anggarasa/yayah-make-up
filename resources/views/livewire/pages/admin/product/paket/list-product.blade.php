@@ -118,7 +118,7 @@
                     </div>
 
                     <div class="p-4">
-                        <a href="{{ route('show-product', $product->id) }}"
+                        <a href="{{ route('show-product', $product->id) }}" wire:navigate
                             class="font-semibold mb-2 hover:underline">{{
                             Str::limit($product->title, 20, '...') }}</a>
                         <div class="flex flex-col mb-2">
