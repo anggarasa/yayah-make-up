@@ -20,6 +20,18 @@
     @livewireStyles
 
     <style>
+        /* Text shadow untuk meningkatkan keterbacaan teks di atas gambar */
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Smooth transition untuk slide */
+        .transition {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 500ms;
+        }
+
         .quill-content ol {
             list-style-type: decimal;
             padding-left: 1.5em;

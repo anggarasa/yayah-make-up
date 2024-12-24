@@ -22,6 +22,19 @@
 
     {{-- Css Custom --}}
     <style>
+        .modal-backdrop {
+            backdrop-filter: blur(5px);
+        }
+
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
         @keyframes progress {
             from {
                 width: 100%

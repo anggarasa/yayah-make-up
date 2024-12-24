@@ -1,23 +1,71 @@
 <div>
-    {{-- Product list Start --}}
-    <div class="container mx-auto px-4 py-6">
+    {{-- Carousel promo --}}
+    <div class="container mx-auto px-4 py-6" x-data="carousel()">
         <div class="bg-white rounded-xl overflow-hidden shadow-lg">
-            <div class="relative h-96">
-                <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 animate-gradient">
-                    <div class="flex items-center justify-center h-full">
-                        <div class="text-center text-white">
-                            <h1 class="text-4xl font-bold mb-4">Flash Sale! Diskon Hingga 90%</h1>
-                            <p class="text-xl mb-6">Jangan lewatkan penawaran spesial hari ini</p>
-                            <button
-                                class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
-                                Belanja Sekarang
-                            </button>
+            <div class="relative h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px]">
+                <!-- Carousel container -->
+                <div class="relative h-full">
+                    <!-- Slides -->
+                    <template x-for="(slide, index) in slides" :key="index">
+                        <div x-show="currentSlide === index" x-transition:enter="transition transform duration-500"
+                            x-transition:enter-start="opacity-0 translate-x-full"
+                            x-transition:enter-end="opacity-100 translate-x-0"
+                            x-transition:leave="transition transform duration-500"
+                            x-transition:leave-start="opacity-100 translate-x-0"
+                            x-transition:leave-end="opacity-0 -translate-x-full" class="absolute inset-0">
+                            <!-- Background Image dengan Overlay -->
+                            <div class="relative w-full h-full">
+                                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                                    :style="`background-image: url('${slide.image}')`"></div>
+                                <!-- Overlay gradient untuk memastikan teks tetap terbaca -->
+                                <div :class="slide.overlay" class="absolute inset-0 opacity-60"></div>
+
+                                <!-- Content -->
+                                <div class="relative h-full flex items-center justify-center px-4">
+                                    <div class="text-center text-white">
+                                        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 text-shadow"
+                                            x-text="slide.title"></h1>
+                                        <p class="text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 text-shadow"
+                                            x-text="slide.description"></p>
+                                        <button :class="slide.buttonClass"
+                                            class="text-sm sm:text-base px-4 sm:px-8 py-2 sm:py-3 rounded-full font-semibold hover:opacity-90 transition shadow-lg">
+                                            Belanja Sekarang
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </template>
+
+                    <!-- Navigation Buttons -->
+                    <button @click="previousSlide"
+                        class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 rounded-full p-2 backdrop-blur-sm transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button @click="nextSlide"
+                        class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 rounded-full p-2 backdrop-blur-sm transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                    <!-- Indicators -->
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        <template x-for="(slide, index) in slides" :key="index">
+                            <button @click="currentSlide = index"
+                                :class="{'w-8 bg-white': currentSlide === index, 'w-2 bg-white/50': currentSlide !== index}"
+                                class="h-2 rounded-full transition-all duration-300"></button>
+                        </template>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     {{-- Product list Start --}}
     <div class="container mx-auto px-4 py-8">
         <h2 class="text-2xl font-bold mb-6">Rekomendasi Untukmu</h2>
@@ -90,4 +138,51 @@
         </div>
     </div>
     {{-- Product list End --}}
+
+    <script>
+        function carousel() {
+    return {
+        currentSlide: 0,
+        slides: [
+            {
+                title: "Flash Sale! Diskon Hingga 90%",
+                description: "Jangan lewatkan penawaran spesial hari ini",
+                image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                overlay: "bg-gradient-to-r from-purple-900 to-pink-900",
+                buttonClass: "bg-purple-600 text-white hover:bg-purple-700"
+            },
+            {
+                title: "New Arrival: Gadget Terbaru",
+                description: "Temukan koleksi gadget premium dengan harga spesial",
+                image: "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                overlay: "bg-gradient-to-r from-blue-900 to-teal-900",
+                buttonClass: "bg-blue-600 text-white hover:bg-blue-700"
+            },
+            {
+                title: "Fashion Week Sale",
+                description: "Tampil trendy dengan koleksi fashion terbaru",
+                image: "https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                overlay: "bg-gradient-to-r from-orange-900 to-red-900",
+                buttonClass: "bg-orange-600 text-white hover:bg-orange-700"
+            },
+            {
+                title: "Promo Elektronik",
+                description: "Dapatkan cashback hingga 1 juta rupiah",
+                image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+                overlay: "bg-gradient-to-r from-gray-900 to-black",
+                buttonClass: "bg-gray-800 text-white hover:bg-gray-900"
+            }
+        ],
+        previousSlide() {
+            this.currentSlide = this.currentSlide === 0 ? this.slides.length - 1 : this.currentSlide - 1;
+        },
+        nextSlide() {
+            this.currentSlide = this.currentSlide === this.slides.length - 1 ? 0 : this.currentSlide + 1;
+        },
+        init() {
+            setInterval(() => this.nextSlide(), 5000);
+        }
+    }
+}
+    </script>
 </div>

@@ -110,7 +110,7 @@
                                 Diskon Product
                             </x-sidebar-dropdown-link>
 
-                            <x-sidebar-dropdown-link href="{{ route('baju-pernikahan') }}" wire:navigate>
+                            <x-sidebar-dropdown-link href="{{ route('diskon-promo.management-promo') }}" wire:navigate>
                                 Promo
                             </x-sidebar-dropdown-link>
                         </x-slot>

@@ -16,6 +16,7 @@ use App\Livewire\Pages\Admin\Question\ShowQuestionWelcome;
 use App\Livewire\Pages\Admin\Category\Product\CategoryProduct;
 use App\Livewire\Pages\Admin\Diskon\DiskonProduct;
 use App\Livewire\Pages\Admin\Diskon\ManagementDiskon;
+use App\Livewire\Pages\Admin\Promo\CarouselPromo;
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
   Route::get('/dashboard', function () {
@@ -52,6 +53,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
   Route::prefix('diskon&promo')->name('diskon-promo.')->group(function() {
     Route::get('/management-diskon', ManagementDiskon::class)->name('management-diskon');
     Route::get('/management-diskon-product', DiskonProduct::class)->name('management-diskon-product');
+    Route::get('/management-promo', CarouselPromo::class)->name('management-promo');
   });
 
   Route::get('/notification', AdminNotification::class)->name('admin-notification');
